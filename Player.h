@@ -20,7 +20,7 @@ class Player {
 		~Player();
 
         const Command play(const std::vector<const Card*>&);
-		void newRound(std::vector<const Card*>);
+		void newRound(const std::vector<const Card*>&);
 		void updateScore();
 
 		int id() const;

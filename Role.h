@@ -19,7 +19,7 @@ class Role {
 
 	public:
 		Role(Player*);
-		~Role();
+		virtual ~Role();
 
 		virtual const Command play(const std::vector<const Card*>&) = 0;
 

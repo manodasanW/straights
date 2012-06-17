@@ -42,7 +42,7 @@ const Command Player::play(const std::vector<const Card*>& table) {
 }
 
 // start a new round by giving the player a new set of cards
-void Player::newRound(vector<const Card *> new_cards) {
+void Player::newRound(const vector<const Card *> &new_cards) {
     hand_ = new_cards;
 }
 

@@ -24,7 +24,7 @@ Deck::Deck() : cards_left_(CARD_COUNT) {
     // add all standard playing cards to deck in order
     for (int s = 0; s < SUIT_COUNT; s++) {
         for (int r = 0; r < RANK_COUNT; r++) {
-            Card *c = new Card(s, r);
+            Card *c = new Card((Suit)s, (Rank)r);
             cards_.push_back(c);
         }
     }
@@ -54,14 +54,14 @@ void Deck::shuffle(){
 	while ( n > 1 ) {
 		int k = (int) (lrand48() % n);
 		--n;
-		Card *c = cards_[n];
+		const Card *c = cards_[n];
 		cards_[n] = cards_[k];
 		cards_[k] = c;
 	}
 }
 
 // returns a vector of 13 cards for a player to use
-vector<const Card *> dealPlayerHand() {
+vector<const Card *> Deck::dealPlayerHand() {
     vector<const Card *> hand;
     hand.reserve(HAND_SIZE);
     
@@ -86,10 +86,10 @@ ostream &operator<<(ostream &o, const Deck &d) {
     for (int i = 0; i < SUIT_COUNT; i++) {
         for (int j = 0; j < RANK_COUNT; j++) {
             if (j == 0) {
-                o << cards_[index];
+                o << d.cards_[index];
             }
             else {
-                o << " " << cards_[index];
+                o << " " << d.cards_[index];
             }
             index++;
         }
