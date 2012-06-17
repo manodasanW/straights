@@ -6,34 +6,43 @@
 
 #include "Card.h"
 #include "Player.h"
+#include "AIRole.h"
+#include "HumanRole.h"
+
 #include <iostream>
 
 using namespace std;
 
 // Player constructor
 Player::Player(int id, bool is_human) : id_(id), score_(0) {
-    // nothing to do here
+    if (is_human) {
+        role_ = new HumanRole();
+    }
+    else {
+        role_ = new AIRole();
+    }
 }
 
 // Player destructor
 Player::~Player() {
-    // nothing to do here
+    delete role_;
 }
 
 // handle played card
-const Command play() {
-    Command c = role_.play();
+const Command Player::play() {
+    Command c = role_->play();
     // handle ragequit on its own
     if (c.type == RAGEQUIT) {
         cout << "Player " << id_ << " ragequits. A computer will now take over." << endl;
-        role_ = AIRole();
+        delete role_;
+        role_ = new AIRole();
     }
     // in any case, pass results to main
     return c;
 }
 
 // start a new round by giving the player a new set of cards
-void newRound(vector<const Card *> new_cards) {
+void Player::newRound(vector<const Card *> new_cards) {
     hand_ = new_cards;
 }
 
@@ -41,7 +50,7 @@ void newRound(vector<const Card *> new_cards) {
 // and add them for points
 void Player::updateScore() {
     for (int i = 0; i < discards_.size(); i++) {
-        score_ += ((int)discards[i]->getRank()) + 1;
+        score_ += ((int)discards_[i]->getRank()) + 1;
     }
 }
 

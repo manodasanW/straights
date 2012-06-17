@@ -10,6 +10,7 @@
 #include "Command.h"
 #include "Card.h"
 #include "Role.h"
+#include <vector>
 
 class Player {
 	public:
@@ -24,7 +25,7 @@ class Player {
 		int score() const;
 
 	private:
-		Role role_;
+		Role *role_;
 		std::vector<const Card*> hand_;
 		std::vector<const Card*> discards_;
 		int score_;
