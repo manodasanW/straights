@@ -1,36 +1,21 @@
+#include "Role.h"
+
 class Player {
 	public:
-		Player(int);
+		Player(int, boolean);
 		virtual ~Player();
 
-		virtual const lastMove play() = 0;
-		void legalMoves(std::vector<Card*>);
+		const Message play();
 		void newRound (std::vector<Card*>);
+		void updateScore();
 
 		int id() const;
 		int score() const;
 
-		void updateScore();
-
-		struct lastMove {
-
-			std::string move;
-			Card* card;	
-
-		};
-			
-	protected:
-		void playCard(const Card&);
-		void discardCard(const Card&);
 	private:
+		Role role;
 		std::vector<const Card*> hand;
 		std::vector<const Card*> discards;
 		int score;
 		int id;
 };
-
-namespace helper {
-
-	int findCard(std::vector<const Card*>, const Card);
-
-}
