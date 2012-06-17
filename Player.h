@@ -7,6 +7,8 @@
 #ifndef _PLAYER_H_
 #define _PLAYER_H_
 
+#include "Command.h"
+#include "Card.h"
 #include "Role.h"
 
 class Player {
@@ -14,7 +16,7 @@ class Player {
 		Player(int, bool);
 		~Player();
 
-        const Role::Message play();
+        const Command play();
 		void newRound(std::vector<const Card*>);
 		void updateScore();
 

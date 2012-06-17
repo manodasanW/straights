@@ -6,6 +6,9 @@
 
 #include "Card.h"
 #include "Player.h"
+#include <iostream>
+
+using namespace std;
 
 // Player constructor
 Player::Player(int id, bool is_human) : id_(id), score_(0) {
@@ -15,6 +18,18 @@ Player::Player(int id, bool is_human) : id_(id), score_(0) {
 // Player destructor
 Player::~Player() {
     // nothing to do here
+}
+
+// handle played card
+const Command play() {
+    Command c = role_.play();
+    // handle ragequit on its own
+    if (c.type == RAGEQUIT) {
+        cout << "Player " << id_ << " ragequits. A computer will now take over." << endl;
+        role_ = AIRole();
+    }
+    // in any case, pass results to main
+    return c;
 }
 
 // start a new round by giving the player a new set of cards
