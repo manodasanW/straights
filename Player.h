@@ -1,21 +1,32 @@
+/*
+ Player.h
+ 
+ Declaration of Player class.
+ */
+
+#ifndef _PLAYER_H_
+#define _PLAYER_H_
+
 #include "Role.h"
 
 class Player {
 	public:
 		Player(int, bool);
-		virtual ~Player();
+		~Player();
 
-		const Message play();
-		void newRound (std::vector<Card*>);
+        const Role::Message play();
+		void newRound(std::vector<const Card*>);
 		void updateScore();
 
 		int id() const;
 		int score() const;
 
 	private:
-		Role role;
-		std::vector<const Card*> hand;
-		std::vector<const Card*> discards;
-		int score;
-		int id;
+		Role role_;
+		std::vector<const Card*> hand_;
+		std::vector<const Card*> discards_;
+		int score_;
+		int id_;
 };
+
+#endif /* _PLAYER_H_ */
