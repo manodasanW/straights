@@ -2,7 +2,7 @@
 
 class Player {
 	public:
-		Player(int, boolean);
+		Player(int, bool);
 		virtual ~Player();
 
 		const Message play();
