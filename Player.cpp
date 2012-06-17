@@ -4,14 +4,17 @@
  Definitions for Player.h.
  */
 
+#include "Card.h"
 #include "Player.h"
 
 // Player constructor
 Player::Player(int id, bool is_human) : id_(id), score_(0) {
+    // nothing to do here
 }
 
 // Player destructor
 Player::~Player() {
+    // nothing to do here
 }
 
 // start a new round by giving the player a new set of cards
@@ -23,7 +26,7 @@ void newRound(vector<const Card *> new_cards) {
 // and add them for points
 void Player::updateScore() {
     for (int i = 0; i < discards_.size(); i++) {
-        // stuff
+        score_ += ((int)discards[i]->getRank()) + 1;
     }
 }
 
