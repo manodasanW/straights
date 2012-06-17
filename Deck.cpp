@@ -4,9 +4,6 @@
  Definitions for Deck class.
  */
 
-#ifndef _DECK_CPP_
-#define _DECK_CPP_
-
 #include <cstdlib>
 #include <ostream>
 #include <vector>
@@ -100,5 +97,3 @@ ostream &operator<<(ostream &o, const Deck &d) {
     }
     return o;
 }
-
-#endif /* _DECK_CPP_ */
