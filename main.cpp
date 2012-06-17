@@ -3,6 +3,8 @@
 #include <sstream>
 #include <cstdlib>
 
+using namespace std;
+
 namespace helper{
 	// Converts the given string to a int
 	int strToNum(string strNum)
@@ -29,5 +31,4 @@ int main(int argc, char * argv[])
 		srand48(seed);
 	}
 	
-	while	
 }

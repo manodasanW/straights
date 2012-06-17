@@ -16,10 +16,10 @@ using namespace std;
 // Player constructor
 Player::Player(int id, bool is_human) : id_(id), score_(0) {
     if (is_human) {
-        role_ = new HumanRole();
+        role_ = new HumanRole(this);
     }
     else {
-        role_ = new AIRole();
+        role_ = new AIRole(this);
     }
 }
 
@@ -29,13 +29,13 @@ Player::~Player() {
 }
 
 // handle played card
-const Command Player::play() {
-    Command c = role_->play();
+const Command Player::play(const std::vector<const Card*>& table) {
+    Command c = role_->play(table);
     // handle ragequit on its own
     if (c.type == RAGEQUIT) {
         cout << "Player " << id_ << " ragequits. A computer will now take over." << endl;
         delete role_;
-        role_ = new AIRole();
+        role_ = new AIRole(this);
     }
     // in any case, pass results to main
     return c;

@@ -12,17 +12,21 @@
 #include "Role.h"
 #include <vector>
 
+class Role;
+
 class Player {
 	public:
 		Player(int, bool);
 		~Player();
 
-        const Command play();
+        const Command play(const std::vector<const Card*>&);
 		void newRound(std::vector<const Card*>);
 		void updateScore();
 
 		int id() const;
 		int score() const;
+
+		friend class Role;
 
 	private:
 		Role *role_;
