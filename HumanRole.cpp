@@ -31,9 +31,9 @@ const Command HumanRole::play(const CardList& table) {
     // present game info and player data to human player
 	cout << "Cards on the table:" << endl;
 	CardOperations::printFormatted(table);
-	cout << "Your hand:";
+	cout << "Your hand: ";
 	CardOperations::printUnFormatted(hand);
-	cout << "Legal plays:";
+	cout << "Legal Plays: ";
 	CardOperations::printUnFormatted(legalCards);
 
 	while(true) {
