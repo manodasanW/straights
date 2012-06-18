@@ -31,14 +31,13 @@ int CardOperations::find(const CardList& list, const Card& card) {
 			return index;
 		}
 	}
-
 	// card not found
 	return -1;
 }
 
 void CardOperations::printFormatted(const CardList &list) {
     const char *suit_strs[] = {"Clubs:", "Diamonds:", "Hearts:", "Spades:"};
-    
+
     for (int i = 0; i < SUIT_COUNT; i++) {
         cout << suit_strs[i];
         for (int j = 0; j < RANK_COUNT; j++) {
@@ -55,9 +54,10 @@ void CardOperations::printUnFormatted(const CardList& list) {
 	
 	for (unsigned int index = 0; index < list.size(); index +=1) {
 		if (index == 0) {
-			cout << list[index];
+			cout << *list[index];
 		} else {
-			cout << " " << list[index];
+			cout << " " << *list[index];
 		}
 	}
+	cout << endl;
 }

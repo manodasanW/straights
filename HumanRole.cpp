@@ -31,6 +31,7 @@ const Command HumanRole::play(const CardList& table) {
 	CardOperations::printUnFormatted(legalMoves);
 
 	while(true) {
+		cout << ">";
 		cin >> command;
 
 		try {

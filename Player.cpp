@@ -52,7 +52,6 @@ void Player::endRound() {
     // print player info
     cout << "Player " << id_ << "'s discards: ";
     CardOperations::printUnFormatted(discards_);
-    cout << endl;
     cout << "Player " << id_ << "'s score: " << old_score << " + ";
     cout << (score_ - old_score) << " = " << score_ << endl;
 }
