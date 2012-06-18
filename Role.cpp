@@ -86,6 +86,15 @@ void Role::printMove(const Card& card, bool play) {
 CardList GameLogic::legalMoves(const CardList& table, const CardList& hand) {
 	CardList legalMoves;									// used to store legal cards
 
+	// In the case the table is empty, this means this play has 7 of spades, so he has to be forced to play it
+	if(table.size() == 0) {
+		// finds the 7S card, so we only got one instance of it
+		int index = CardOperations::find(hand, Card(SPADE, SEVEN));
+		const Card* sevenSpades = hand[index];
+		CardOperations::add(legalMoves, sevenSpades);
+		return legalMoves;
+	}
+ 
 	// loops through hand to determine which ones are legal to play
 	for (unsigned int index = 0; index < hand.size(); index++) {
 		const Card * card = hand[index];

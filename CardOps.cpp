@@ -38,6 +38,7 @@ int CardOperations::find(const CardList& list, const Card& card) {
 // Prints the given cards in list ordered by suits
 void CardOperations::printFormatted(const CardList &list) {
     const char *suit_strs[] = {"Clubs:", "Diamonds:", "Hearts:", "Spades:"};
+	string ranks[RANK_COUNT] = {"A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"};
 
 	// loops through all the possible suits
     for (int i = 0; i < SUIT_COUNT; i++) {
@@ -47,7 +48,7 @@ void CardOperations::printFormatted(const CardList &list) {
 			// Determines whether to output card rank or not
             Card test_card = Card((Suit)i, (Rank)j);
             if (CardOperations::find(list, test_card) != -1) {
-                cout << " " << j+1;
+                cout << " " << ranks[test_card.getRank()];
             } // if
         } // for
         cout << endl;

@@ -34,8 +34,10 @@ const Command Player::play(const CardList& table) {
     // handle ragequit on its own
     if (c.type == RAGEQUIT) {
         cout << "Player " << id_ << " ragequits. A computer will now take over." << endl;
+		// replaces human role with ai role
         delete role_;
         role_ = new AIRole(this);
+		c = role_->play(table);					// makes the ai play again as rage quit isn't a game command
     }
     // in any case, pass results to main
     return c;
@@ -44,6 +46,7 @@ const Command Player::play(const CardList& table) {
 // start a new round by giving the player a new set of cards
 void Player::newRound(const CardList &new_cards) {
     hand_ = new_cards;
+	discards_.clear();
 }
 
 // handle the end of round for the player

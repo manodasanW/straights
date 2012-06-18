@@ -38,7 +38,9 @@ namespace helper {
 
 int main(int argc, char * argv[])
 {
-    const int MAX_TURNS = 13;
+	// maximum number of plays
+    const int MAX_TURNS = 52;
+	// score at which game ends
     const int ENDGAME_SCORE = 80;
     
 	// check for if optional parameter is given
@@ -143,6 +145,7 @@ int main(int argc, char * argv[])
         if (players[i]->score() < min_score) {
             winners.clear();
             winners.push_back(i+1);
+			min_score = players[i]->score();
         }
         else if (players[i]->score() == min_score) {
             winners.push_back(i+1);

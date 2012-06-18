@@ -7,7 +7,7 @@ using namespace std;
 	Constructor/Destructor
 **/
 HumanRole::HumanRole(Player* player)
-		:Role(player) {
+		:Role(player), inputIncomplete(false) {
 }
 
 HumanRole::~HumanRole()
@@ -28,14 +28,18 @@ const Command HumanRole::play(const CardList& table) {
 
 	Command command;
     
-    // present game info and player data to human player
-	cout << "Cards on the table:" << endl;
-	CardOperations::printFormatted(table);
-	cout << "Your hand: ";
-	CardOperations::printUnFormatted(hand);
-	cout << "Legal Plays: ";
-	CardOperations::printUnFormatted(legalCards);
+	// determines whether the user already saw this info during this round
+	if (!inputIncomplete) {
+	    // present game info and player data to human player
+		cout << "Cards on the table:" << endl;
+		CardOperations::printFormatted(table);
+		cout << "Your hand: ";
+		CardOperations::printUnFormatted(hand);
+		cout << "Legal Plays: ";
+		CardOperations::printUnFormatted(legalCards);
+	}
 
+	inputIncomplete = false;
 	while(true) {
         // get command from user
 		cout << ">";
@@ -48,6 +52,9 @@ const Command HumanRole::play(const CardList& table) {
             // if a discard command, discard the card
 			} else if(command.type == DISCARD) {
 				Role::discardCard(command.card);
+			} else {
+				// determines whether we are expecting the user to enter another input for this turn
+				inputIncomplete = true;
 			} // if
             // and we are done
 			break;

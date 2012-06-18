@@ -87,12 +87,7 @@ ostream & operator<<(ostream &o, const Deck &d) {
     // 13 cards/line
     for (int i = 0; i < SUIT_COUNT; i++) {
         for (int j = 0; j < RANK_COUNT; j++) {
-            if (j == 0) {
-                o << *d.cards_[index];
-            }
-            else {
-                o << " " << *d.cards_[index];
-            }
+			o << *d.cards_[index] << " ";
             index++;
         }
         o << endl;
