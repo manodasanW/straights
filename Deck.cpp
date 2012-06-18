@@ -39,6 +39,11 @@ Deck::~Deck() {
 }
 
 
+// repopulate deck
+void Deck::repopulate() {
+    cards_left_ = CARD_COUNT;
+}
+
 // copied and pasted from given shuffle.cpp
 
 /* To ensure that the your cards are ordered the same way as
@@ -80,7 +85,7 @@ vector<const Card *> Deck::dealPlayerHand() {
 }
 
 // for use with cout and family
-ostream &operator<<(ostream &o, const Deck &d) {
+ostream & operator<<(ostream &o, const Deck &d) {
     int index = 0;
     // 13 cards/line
     for (int i = 0; i < SUIT_COUNT; i++) {

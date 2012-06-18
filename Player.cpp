@@ -46,6 +46,11 @@ void Player::newRound(const vector<const Card *> &new_cards) {
     hand_ = new_cards;
 }
 
+// find out if the player possesses the 7 of spades
+bool Player::has7OfSpades() const {
+    return CardSet::find(hand_, Card(SPADE, SEVEN)) != -1;
+}
+
 // tells Player object to take the cards in its discard pile
 // and add them for points
 void Player::updateScore() {

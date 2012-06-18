@@ -17,6 +17,7 @@ class Deck {
 	public:
 		Deck();
 		~Deck();
+        void repopulate();
 		void shuffle();
         std::vector<const Card*> dealPlayerHand();
 		friend std::ostream &operator<<(std::ostream &, const Deck &);
@@ -25,7 +26,5 @@ class Deck {
         int cards_left_;
         std::vector<const Card*> cards_;
 };
-
-std::ostream &operator<<(std::ostream &, Deck &);
 
 #endif /* _DECK_H_ */

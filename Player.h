@@ -22,6 +22,7 @@ class Player {
         const Command play(const std::vector<const Card*>&);
 		void newRound(const std::vector<const Card*>&);
 		void updateScore();
+        bool has7OfSpades() const;
 
 		int id() const;
 		int score() const;
