@@ -47,6 +47,7 @@ int main(int argc, char * argv[])
     for (int i = 1; i <= 4; i++) {
         cout << "Is player " << i << " a human(h) or a computer(c)?" << endl;
         char input;
+		cout << ">";
         cin >> input;
         assert(input == 'c' || input == 'C' || input == 'H' || input == 'h');
         players.push_back(Player(i, input == 'h' || input == 'H'));
@@ -64,7 +65,7 @@ int main(int argc, char * argv[])
         
         // deal out cards
         int curr_player = 1;
-        for (int i = 0; i < players.size(); i++) {
+        for (unsigned int i = 0; i < players.size(); i++) {
             players[i].newRound(game_deck.dealPlayerHand());
             if (players[i].has7OfSpades()) {
                 curr_player = i;
@@ -105,7 +106,7 @@ int main(int argc, char * argv[])
         
         // update players' score
         // also check to see if any player has score >= 80
-        for (int i = 0; i < players.size(); i++) {
+        for (unsigned int i = 0; i < players.size(); i++) {
             players[i].endRound();
             
             // mark game as over if score >= 80
@@ -119,7 +120,7 @@ int main(int argc, char * argv[])
     // see who has the minimum score
     int min_score = players[0].score();
     vector<int> winners;
-    for (int i = 0; i < players.size(); i++) {
+    for (unsigned int i = 0; i < players.size(); i++) {
         if (players[i].score() < min_score) {
             winners.clear();
             winners.push_back(i);
@@ -130,7 +131,7 @@ int main(int argc, char * argv[])
     }
     
     // congratulate them
-    for (int i = 0; i < winners.size(); i++) {
+    for (unsigned int i = 0; i < winners.size(); i++) {
         cout << "Player " << i << " wins!" << endl;
     }
     

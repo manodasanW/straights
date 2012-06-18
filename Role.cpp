@@ -27,14 +27,14 @@ Role::~Role() {
 const Card* Role::playCard(const CardList& table, const Card& card) {
 	const CardList legalCards = GameLogic::legalMoves(table, getPlayerHand());
 
-	int cardIndex = CardSet::find(legalCards, card);
+	int cardIndex = CardOperations::find(legalCards, card);
 	if(cardIndex == -1)	{
 		throw IllegalPlayException();
 	}
 	
 	printMove(card, true);
 
-	const Card* played = CardSet::remove(player_->hand_, card);
+	const Card* played = CardOperations::remove(player_->hand_, card);
 	return played;
 }
 
@@ -48,8 +48,8 @@ void Role::discardCard(const CardList& table, const Card& card) {
 
 	printMove(card, false);
 
-	const Card* deletedCard = CardSet::remove(player_->hand_, card);
-	CardSet::add(player_->discards_, deletedCard);
+	const Card* deletedCard = CardOperations::remove(player_->hand_, card);
+	CardOperations::add(player_->discards_, deletedCard);
 }
 		
 const CardList& Role::getPlayerHand() const {
@@ -65,7 +65,7 @@ void Role::printMove(const Card& card, bool play) {
 
 
 //Given the cards already played by all players and a player's hand, determines the legal moves which can be done by the player
-const CardList GameLogic::legalMoves(vector<const Card*> table, vector<const Card*> hand) {
+const CardList GameLogic::legalMoves(const CardList& table, const CardList& hand) {
 	CardList legalMoves;
 
 	for (unsigned int index = 0; index < hand.size(); index++) {

@@ -1,6 +1,6 @@
 CXX = g++ 			
 CXXFLAGS = -g -Wall -MMD
-OBJECTS = Card.o Command.o Role.o AIRole.o HumanRole.o Player.o main.o Deck.o
+OBJECTS = Card.o Command.o CardOps.o Role.o AIRole.o HumanRole.o Player.o main.o Deck.o
 DEPENDS = ${OBJECTS:.o=.d}
 EXEC = straights
 

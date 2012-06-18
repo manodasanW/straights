@@ -33,7 +33,7 @@ Deck::Deck() : cards_left_(CARD_COUNT) {
 // Deck destructor
 Deck::~Deck() {
     // get rid of all playing cards
-    for (int i = 0; i < cards_.size(); i++) {
+    for (unsigned int i = 0; i < cards_.size(); i++) {
         delete cards_[i];
     }
 }

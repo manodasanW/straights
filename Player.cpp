@@ -4,9 +4,7 @@
  Definitions for Player.h.
  */
 
-#include "CardOps.h"
 #include "Card.h"
-#include "Player.h"
 #include "AIRole.h"
 #include "HumanRole.h"
 
@@ -30,7 +28,7 @@ Player::~Player() {
 }
 
 // handle played card
-const Command Player::play(const std::vector<const Card*>& table) {
+const Command Player::play(const CardList& table) {
     Command c = role_->play(table);
     // handle ragequit on its own
     if (c.type == RAGEQUIT) {
@@ -43,7 +41,7 @@ const Command Player::play(const std::vector<const Card*>& table) {
 }
 
 // start a new round by giving the player a new set of cards
-void Player::newRound(const vector<const Card *> &new_cards) {
+void Player::newRound(const CardList &new_cards) {
     hand_ = new_cards;
 }
 
@@ -61,13 +59,13 @@ void Player::endRound() {
 
 // find out if the player possesses the 7 of spades
 bool Player::has7OfSpades() const {
-    return CardSet::find(hand_, Card(SPADE, SEVEN)) != -1;
+    return CardOperations::find(hand_, Card(SPADE, SEVEN)) != -1;
 }
 
 // tells Player object to take the cards in its discard pile
 // and add them for points
 void Player::updateScore() {
-    for (int i = 0; i < discards_.size(); i++) {
+    for (unsigned int i = 0; i < discards_.size(); i++) {
         score_ += ((int)discards_[i]->getRank()) + 1;
     }
 }

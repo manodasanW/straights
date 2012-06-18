@@ -10,7 +10,7 @@
 #include "Command.h"
 #include "Card.h"
 #include "Role.h"
-#include <vector>
+#include "CardOps.h"
 
 class Role;
 
@@ -19,8 +19,8 @@ class Player {
 		Player(int, bool);
 		~Player();
 
-        const Command play(const std::vector<const Card*>&);
-		void newRound(const std::vector<const Card*>&);
+        const Command play(const CardList&);
+		void newRound(const CardList&);
         void endRound();
         bool has7OfSpades() const;
 
@@ -33,10 +33,10 @@ class Player {
         void updateScore();
     
 		Role *role_;
-		std::vector<const Card*> hand_;
-		std::vector<const Card*> discards_;
-		int score_;
+		CardList hand_;
+		CardList discards_;
 		int id_;
+		int score_;
 };
 
 #endif /* _PLAYER_H_ */

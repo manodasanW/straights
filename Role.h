@@ -21,7 +21,7 @@ class Role {
 		Role(Player*);
 		virtual ~Role();
 
-		virtual const Command& play(const CardList&) = 0;
+		virtual const Command play(const CardList&) = 0;
 
 	protected:
 		const Card* playCard(const CardList&, const Card&);
