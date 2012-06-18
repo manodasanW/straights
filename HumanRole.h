@@ -15,10 +15,10 @@
 class HumanRole : public Role {
 
 	public:
-		HumanRole(Player*);
-		~HumanRole();
+		HumanRole(Player*);                         // constructor
+		~HumanRole();                               // destructor
 
-		const Command play(const CardList&);
+		const Command play(const CardList&);        // gets human move given the table
 };
 
 #endif /* _HUMANROLE_H_ */
