@@ -9,9 +9,9 @@
 
 #include "Role.h"
 #include "Command.h"
-#include <vector>
 #include "Player.h"
 #include "Card.h"
+#include "CardOps.h"
 
 class AIRole : public Role {
 
@@ -19,7 +19,7 @@ class AIRole : public Role {
 		AIRole(Player*);
 		~AIRole();
 
-		const Command play(const std::vector<const Card*>&);	
+		const Command play(const CardList&);	
 };
 
 #endif /* _AIROLE_H_ */

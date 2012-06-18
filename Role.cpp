@@ -14,8 +14,9 @@ Role::Role(Player* player)
 	:player_(player) {
 }
 
-// Does nothing as it doesn't own player and has no other attributes
+// Destructor
 Role::~Role() {
+	player_ = NULL;
 }
 
 /**
@@ -23,8 +24,8 @@ Role::~Role() {
 **/
 
 // Plays the given card
-const Card* Role::playCard(const vector<const Card*> table, const Card& card) {
-	vector<const Card*> legalCards = GameLogic::legalMoves(table, getPlayerHand());
+const Card* Role::playCard(const CardList& table, const Card& card) {
+	const CardList legalCards = GameLogic::legalMoves(table, getPlayerHand());
 
 	int cardIndex = CardSet::find(legalCards, card);
 	if(cardIndex == -1)	{
@@ -38,8 +39,8 @@ const Card* Role::playCard(const vector<const Card*> table, const Card& card) {
 }
 
 
-void Role::discardCard(const vector<const Card*> table, const Card& card) {
-	vector<const Card*> legalCards = GameLogic::legalMoves(table, getPlayerHand());
+void Role::discardCard(const CardList& table, const Card& card) {
+	const CardList legalCards = GameLogic::legalMoves(table, getPlayerHand());
 	
 	if(legalCards.size() != 0) {
 		throw IllegalDiscardException();
@@ -51,7 +52,7 @@ void Role::discardCard(const vector<const Card*> table, const Card& card) {
 	CardSet::add(player_->discards_, deletedCard);
 }
 		
-const vector<const Card*> Role::getPlayerHand() const {
+const CardList& Role::getPlayerHand() const {
 	return player_->hand_;
 }
 
@@ -62,43 +63,10 @@ void Role::printMove(const Card& card, bool play) {
 	cout << "Player " << playerId << move << card << "." << endl;
 }
 
-/**
-	Helper functions
-**/
-
-// Adds the specified card to the list of cards
-void CardSet::add(vector<const Card*>& set, const Card* card) {
-	set.push_back(card);
-}
-
-// Removes the specified card from the list of cards
-// Assumes the given card is in the list of cards
-// Returns the card which was deleted
-const Card* CardSet::remove(vector<const Card*>& set, const Card card) {
-	int indexToDelete = find(set, card);
-	const Card* ret = set[indexToDelete];
-
-	set.erase(set.begin() + indexToDelete);
-	return ret;
-}
-
-//Given a card, determines the index of the card in the set passed which can be the table or player's hand
-//Returns -1 if card is not found, otherwise the index of the card in the hand
-int CardSet::find(vector<const Card*> set, const Card& card) {
-	// loops through all cards in set, and determines if this is the card being looked for
-	for (unsigned int index = 0; index < set.size(); index++) {
-		if (*set[index] == card) {
-			return index;
-		}
-	}
-
-	// card not found
-	return -1;
-}
 
 //Given the cards already played by all players and a player's hand, determines the legal moves which can be done by the player
-vector<const Card*> GameLogic::legalMoves(vector<const Card*> table, vector<const Card*> hand) {
-	vector<const Card*> legalMoves;
+const CardList GameLogic::legalMoves(vector<const Card*> table, vector<const Card*> hand) {
+	CardList legalMoves;
 
 	for (unsigned int index = 0; index < hand.size(); index++) {
 		const Card * card = hand[index];
@@ -107,15 +75,17 @@ vector<const Card*> GameLogic::legalMoves(vector<const Card*> table, vector<cons
 		int higherRankIndex = -1;
 
 		if (card->getRank() != ACE) {
-			lowerRankIndex = CardSet::find(table, Card(card->getSuit(), (Rank) (card->getRank() - 1)));
+			Card lowerRank = Card(card->getSuit(), (Rank) (card->getRank() - 1));
+			lowerRankIndex = CardOperations::find(table, lowerRank);
 		}
 		
 		if (card->getRank() != KING) {
-			higherRankIndex = CardSet::find(table, Card(card->getSuit(), (Rank)(card->getRank() + 1)));
+			Card higherRank = Card(card->getSuit(), (Rank)(card->getRank() + 1));
+			higherRankIndex = CardOperations::find(table, higherRank);
 		}
 
 		if (card->getRank() == SEVEN || lowerRankIndex !=-1 || higherRankIndex != -1) {
-			CardSet::add(legalMoves, card);
+			CardOperations::add(legalMoves, card);
 		}
 	}
 

@@ -48,13 +48,13 @@ void CardOperations::printFormatted(const CardList &set) {
     }
 }
 
-void CardSet::printUnFormatted(const CardList &set) {
+void CardOperations::printUnFormatted(const CardList& list) {
 	
-	for (unsigned int index = 0; index < set.size(); index +=1) {
+	for (unsigned int index = 0; index < list.size(); index +=1) {
 		if (index == 0) {
-			cout << set[index];
+			cout << list[index];
 		} else {
-			cout << " " << set[index];
+			cout << " " << list[index];
 		}
 	}
 }

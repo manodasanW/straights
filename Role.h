@@ -7,12 +7,11 @@
 #ifndef _ROLE_H_
 #define _ROLE_H_
 
-#include <vector>
 #include <exception>
 #include "Player.h"
 #include "Card.h"
 #include "Command.h"
-#include "CardSet.h"
+#include "CardOps.h"
 
 class Player;
 
@@ -50,7 +49,7 @@ class Role {
 
 namespace GameLogic {
 
-	CardList legalMoves(const CardList&, const CardList&);
+	const CardList legalMoves(const CardList&, const CardList&);
 }
 
 #endif /* _ROLE_H_ */

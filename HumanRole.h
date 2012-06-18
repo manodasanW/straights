@@ -10,7 +10,7 @@
 #include "Role.h"
 #include "Player.h"
 #include "Card.h"
-#include <vector>
+#include "CardOps.h"
 
 class HumanRole : public Role {
 
@@ -18,7 +18,7 @@ class HumanRole : public Role {
 		HumanRole(Player*);
 		~HumanRole();
 
-		const Command play(const std::vector<const Card*>&);
+		const Command play(const CardList&);
 };
 
 #endif /* _HUMANROLE_H_ */

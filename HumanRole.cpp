@@ -18,17 +18,17 @@ HumanRole::~HumanRole()
 	Game Logic
 **/
 
-const Command HumanRole::play(const vector<const Card*>& table) {
-	const vector<const Card*> hand = Role::getPlayerHand();
-	const vector<const Card*> legalMoves =  GameLogic::legalMoves(table, hand);
+const Command HumanRole::play(const CardList& table) {
+	const CardList hand = Role::getPlayerHand();
+	const CardList& legalMoves =  GameLogic::legalMoves(table, hand);
 	Command command;
 
 	cout << "Cards on the table:" << endl;
-	CardSet::printFormatted(table);
+	CardOperations::printFormatted(table);
 	cout << "Your hand:";
-	CardSet::printUnFormatted(hand);
+	CardOperations::printUnFormatted(hand);
 	cout << "Legal plays:";
-	CardSet::printUnFormatted(legalMoves);
+	CardOperations::printUnFormatted(legalMoves);
 
 	while(true) {
 		cin >> command;
@@ -47,4 +47,3 @@ const Command HumanRole::play(const vector<const Card*>& table) {
 
 	return command;
 }
-

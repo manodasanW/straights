@@ -1,11 +1,11 @@
 /*
- CardSet.h
+ CardOps.h
  
- Declaration of CardSet namespace which contains functions to manipulate vector of cards.
+ Declaration of CardOps which contains functions to manipulate vector of cards and a typedef.
  */
 
-#ifndef _CARDSET_H_
-#define _CARDSET_H_
+#ifndef _CARDOPS_H_
+#define _CARDOPS_H_
 
 #include <vector>
 #include "Card.h"
@@ -22,4 +22,4 @@ namespace CardOperations {
 
 }
 
-#endif /* _CARDSET_H_ */
+#endif /* _CARDOPS_H_ */
