@@ -29,6 +29,7 @@ Player::~Player() {
 
 // handle played card
 const Command Player::play(const CardList& table) {
+    // get player's desired action
     Command c = role_->play(table);
     // handle ragequit on its own
     if (c.type == RAGEQUIT) {

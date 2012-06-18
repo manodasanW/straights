@@ -7,8 +7,8 @@
 #ifndef _DECK_H_
 #define _DECK_H_
 
+#include "CardOps.h"
 #include <ostream>
-#include <vector>
 
 #include "Card.h"
 
@@ -19,12 +19,12 @@ class Deck {
 		~Deck();
         void repopulate();
 		void shuffle();
-        std::vector<const Card*> dealPlayerHand();
+        CardList dealPlayerHand();
 		friend std::ostream &operator<<(std::ostream &, const Deck &);
 
 	private:
         int cards_left_;
-        std::vector<const Card*> cards_;
+        CardList cards_;
 };
 
 #endif /* _DECK_H_ */

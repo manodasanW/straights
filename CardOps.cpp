@@ -1,6 +1,5 @@
 //	Helper functions used to manipulate vector of cards
 
-#include "Card.h"
 #include "CardOps.h"
 #include <iostream>
 

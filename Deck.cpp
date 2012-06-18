@@ -5,10 +5,7 @@
  */
 
 #include <cstdlib>
-#include <ostream>
-#include <vector>
 
-#include "Card.h"
 #include "Deck.h"
 
 using namespace std;
@@ -66,8 +63,8 @@ void Deck::shuffle(){
 }
 
 // returns a vector of 13 cards for a player to use
-vector<const Card *> Deck::dealPlayerHand() {
-    vector<const Card *> hand;
+CardList Deck::dealPlayerHand() {
+    CardList hand;
     hand.reserve(HAND_SIZE);
     
     // grab next 13 cards and copy them to hand vector

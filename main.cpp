@@ -39,6 +39,7 @@ namespace helper {
 int main(int argc, char * argv[])
 {
     const int MAX_TURNS = 13;
+    const int ENDGAME_SCORE = 80;
     
 	// check for if optional parameter is given
 	if (argc > 1) {
@@ -73,7 +74,7 @@ int main(int argc, char * argv[])
         game_deck.shuffle();
         
         // deal out cards
-        int curr_player = 1;
+        int curr_player = 0;
         for (unsigned int i = 0; i < players.size(); i++) {
             players[i]->newRound(game_deck.dealPlayerHand());
             if (players[i]->has7OfSpades()) {
@@ -117,7 +118,7 @@ int main(int argc, char * argv[])
             // next player's turn
             curr_player++;
             curr_player %= players.size();
-        }
+        } // for i = 1...MAX_TURNS
         
 		// clean up table memory
         helper::cleanVectorMem(table);
@@ -128,12 +129,12 @@ int main(int argc, char * argv[])
             players[i]->endRound();
             
             // mark game as over if score >= 80
-            if (players[i]->score() >= 80) {
+            if (players[i]->score() >= ENDGAME_SCORE) {
                 game_over = true;
             }
             
         }
-    }
+    } // while (!game_over)
     
     // see who has the minimum score
     int min_score = players[0]->score();
