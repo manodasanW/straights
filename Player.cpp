@@ -4,6 +4,7 @@
  Definitions for Player.h.
  */
 
+#include "CardOps.h"
 #include "Card.h"
 #include "Player.h"
 #include "AIRole.h"
@@ -44,6 +45,18 @@ const Command Player::play(const std::vector<const Card*>& table) {
 // start a new round by giving the player a new set of cards
 void Player::newRound(const vector<const Card *> &new_cards) {
     hand_ = new_cards;
+}
+
+// handle the end of round for the player
+void Player::endRound() {
+    int old_score = score_;
+    updateScore();
+    // print player info
+    cout << "Player " << id_ << "'s discards: ";
+    CardOperations::printUnFormatted(discards_);
+    cout << endl;
+    cout << "Player " << id_ << "'s score: " << old_score << " + ";
+    cout << (score_ - old_score) << " = " << score_ << endl;
 }
 
 // find out if the player possesses the 7 of spades

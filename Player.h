@@ -21,7 +21,7 @@ class Player {
 
         const Command play(const std::vector<const Card*>&);
 		void newRound(const std::vector<const Card*>&);
-		void updateScore();
+        void endRound();
         bool has7OfSpades() const;
 
 		int id() const;
@@ -30,6 +30,8 @@ class Player {
 		friend class Role;
 
 	private:
+        void updateScore();
+    
 		Role *role_;
 		std::vector<const Card*> hand_;
 		std::vector<const Card*> discards_;

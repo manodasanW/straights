@@ -1,5 +1,8 @@
 //	Helper functions used to manipulate vector of cards
 
+#include "Card.h"
+#include "CardOps.h"
+
 // Adds the specified card to the list of cards
 void CardOperations::add(CardList& list, const Card* card) {
 	list.push_back(card);
@@ -30,11 +33,22 @@ int CardOperations::find(const CardList& list, const Card& card) {
 	return -1;
 }
 
-void CardOperations::printFormatted(const std::vector<const Card*> set) {
-	
+void CardOperations::printFormatted(const CardList &set) {
+    char *suit_strs[] = {"Clubs:", "Diamonds:", "Hearts:", "Spades:"};
+    
+    for (int i = 0; i < SUIT_COUNT; i++) {
+        cout << suit_strs[i];
+        for (int j = 0; j < RANK_COUNT; j++) {
+            Card test_card = Card((Suit)i, (Rank)j);
+            if (CardOperations::find(set, test_card) != -1) {
+                cout << " " << j+1;
+            }
+        }
+        cout << endl;
+    }
 }
 
-void CardSet::printUnFormatted(const std::vector<const Card*> set) {
+void CardSet::printUnFormatted(const CardList &set) {
 	
 	for (unsigned int index = 0; index < set.size(); index +=1) {
 		if (index == 0) {

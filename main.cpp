@@ -7,6 +7,7 @@
 
 #include "Command.h"
 #include "Card.h"
+#include "CardOps.h"
 #include "Deck.h"
 #include "Player.h"
 
@@ -29,6 +30,8 @@ namespace helper {
 
 int main(int argc, char * argv[])
 {
+    const int MAX_TURNS = 13;
+    
 	// check for if optional parameter is given
 	if (argc > 1) {
 		// initalize pseudocode random generator
@@ -71,8 +74,10 @@ int main(int argc, char * argv[])
         // start game loop
         cout << "A new round begins. It's player " << curr_player << "'s turn to play." << endl;
         
-        vector<const Card *> table;             // played cards
-        while (true) {
+        CardList table;             // played cards
+        // a round lasts a fixed number of turns since a player can only
+        // play or discard exactly one card each turn
+        for (int i = 0; i < MAX_TURNS; i++) {
             // get action from player
             Command cmd = players[curr_player].play(table);
             
@@ -101,20 +106,13 @@ int main(int argc, char * argv[])
         // update players' score
         // also check to see if any player has score >= 80
         for (int i = 0; i < players.size(); i++) {
-            // get old and new scores
-            int pl_old_score = players[i].score();
-            players[i].updateScore();
-            int pl_new_score = players[i].score();
+            players[i].endRound();
             
             // mark game as over if score >= 80
-            if (pl_new_score >= 80) {
+            if (players[i].score() >= 80) {
                 game_over = true;
             }
             
-            // print player info
-            cout << "Player " << i << "'s discards: " << endl;
-            cout << "player " << i << "'s score: " << pl_old_score << " + ";
-            cout << (pl_new_score - pl_old_score) << " = " << pl_new_score << endl;
         }
     }
     
