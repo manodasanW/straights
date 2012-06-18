@@ -17,6 +17,8 @@ AIRole::~AIRole()
 	Game Logic
 **/
 
+// Decides what move to make, and performs the move
+// table - set of cards which have been played
 const Command AIRole::play(const vector<const Card*>& table) {
 	const vector<const Card*> hand = Role::getPlayerHand();
 	vector<const Card*> legalCards = GameLogic::legalMoves(table, hand);

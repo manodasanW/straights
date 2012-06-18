@@ -48,21 +48,3 @@ const Command HumanRole::play(const vector<const Card*>& table) {
 	return command;
 }
 
-/**
-	Helper functions
-**/
-
-void CardSet::printFormatted(const std::vector<const Card*> set) {
-	
-}
-
-void CardSet::printUnFormatted(const std::vector<const Card*> set) {
-	
-	for (unsigned int index = 0; index < set.size(); index +=1) {
-		if (index == 0) {
-			cout << set[index];
-		} else {
-			cout << " " << set[index];
-		}
-	}
-}

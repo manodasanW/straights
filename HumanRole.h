@@ -21,11 +21,4 @@ class HumanRole : public Role {
 		const Command play(const std::vector<const Card*>&);
 };
 
-namespace CardSet {
-
-	void printUnFormatted(const std::vector<const Card*>);
-	void printFormatted(const std::vector<const Card*>);
-
-}
-
 #endif /* _HUMANROLE_H_ */

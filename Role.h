@@ -12,6 +12,7 @@
 #include "Player.h"
 #include "Card.h"
 #include "Command.h"
+#include "CardSet.h"
 
 class Player;
 
@@ -21,12 +22,12 @@ class Role {
 		Role(Player*);
 		virtual ~Role();
 
-		virtual const Command play(const std::vector<const Card*>&) = 0;
+		virtual const Command& play(const CardList&) = 0;
 
 	protected:
-		const Card* playCard(const std::vector<const Card*>, const Card&);
-		void discardCard(const std::vector<const Card*>, const Card&);
-		const std::vector<const Card*> getPlayerHand() const;
+		const Card* playCard(const CardList&, const Card&);
+		void discardCard(const CardList&, const Card&);
+		const CardList& getPlayerHand() const;
 
 		class IllegalPlayException : public std::exception {
 
@@ -47,16 +48,9 @@ class Role {
 		Player* player_;
 };
 
-namespace CardSet {
-
-	void add(std::vector<const Card*>&, const Card *);
-	const Card* remove(std::vector<const Card*>&, const Card);
-	int find(std::vector<const Card*>, const Card&);
-}
-
 namespace GameLogic {
 
-	std::vector<const Card*> legalMoves(std::vector<const Card*>, std::vector<const Card*>);
+	CardList legalMoves(const CardList&, const CardList&);
 }
 
 #endif /* _ROLE_H_ */
