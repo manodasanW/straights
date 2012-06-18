@@ -14,6 +14,14 @@
 using namespace std;
 
 namespace helper {
+    // deletes all the elements in a vector
+    template <typename T>
+    void cleanVectorMem(vector<T> v) {
+        for (unsigned int i = 0; i < v.size(); i++) {
+            delete v[i];
+        }
+    }
+    
 	// Converts the given string to a int
 	int strToNum(string strNum)
 	{
@@ -99,6 +107,8 @@ int main(int argc, char * argv[])
             
             else if (cmd.type == QUIT) {
                 // exit game immediately
+                helper::cleanVectorMem(table);
+                helper::cleanVectorMem(players);
                 return 0;
             }
             
@@ -110,9 +120,7 @@ int main(int argc, char * argv[])
         }
         
 		// clean up table memory
-		for (unsigned int i = 0; i < table.size(); i++) {
-			delete table[i];
-		}
+        helper::cleanVectorMem(table);
 
         // update players' score
         // also check to see if any player has score >= 80
@@ -146,9 +154,7 @@ int main(int argc, char * argv[])
     }
     
 	// clean up player memory
-	for (unsigned int i = 0; i < players.size(); i++) {
-		delete players[i];
-	}
+    helper::cleanVectorMem(players);
 
     return 0;
 }
