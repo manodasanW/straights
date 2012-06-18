@@ -14,6 +14,7 @@ void CardOperations::add(CardList& list, const Card* card) {
 // Assumes the given card is in the list of cards
 // Returns the card which was deleted
 const Card* CardOperations::remove(CardList& list, const Card& card) {
+	// finds the index in which the card is in
 	int indexToDelete = find(list, card);
 	const Card* ret = list[indexToDelete];
 
@@ -34,29 +35,36 @@ int CardOperations::find(const CardList& list, const Card& card) {
 	return -1;
 }
 
+// Prints the given cards in list ordered by suits
 void CardOperations::printFormatted(const CardList &list) {
     const char *suit_strs[] = {"Clubs:", "Diamonds:", "Hearts:", "Spades:"};
 
+	// loops through all the possible suits
     for (int i = 0; i < SUIT_COUNT; i++) {
         cout << suit_strs[i];
+		// loops through all the ranks
         for (int j = 0; j < RANK_COUNT; j++) {
+			// Determines whether to output card rank or not
             Card test_card = Card((Suit)i, (Rank)j);
             if (CardOperations::find(list, test_card) != -1) {
                 cout << " " << j+1;
-            }
-        }
+            } // if
+        } // for
         cout << endl;
-    }
+    } // for
 }
 
+// Print the given card in list in a row by suit and rank
 void CardOperations::printUnFormatted(const CardList& list) {
 	
+	// loops through all the cards to print out
 	for (unsigned int index = 0; index < list.size(); index +=1) {
+		// Determines whether it is the first card or not, as printing differs
 		if (index == 0) {
 			cout << *list[index];
 		} else {
 			cout << " " << *list[index];
-		}
-	}
+		} // if
+	} // for
 	cout << endl;
 }

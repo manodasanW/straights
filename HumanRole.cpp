@@ -19,9 +19,13 @@ HumanRole::~HumanRole()
 **/
 
 const Command HumanRole::play(const CardList& table) {
+	// Updates the legal moves as it is a new round
+	Role::updateLegalMoves(table);
+
     // get info about hand and legal moves available
-	const CardList hand = Role::getPlayerHand();
-	const CardList& legalMoves =  GameLogic::legalMoves(table, hand);
+	const CardList legalCards = legalMoves();
+	const CardList hand = playerHand();
+
 	Command command;
     
     // present game info and player data to human player
@@ -30,7 +34,7 @@ const Command HumanRole::play(const CardList& table) {
 	cout << "Your hand:";
 	CardOperations::printUnFormatted(hand);
 	cout << "Legal plays:";
-	CardOperations::printUnFormatted(legalMoves);
+	CardOperations::printUnFormatted(legalCards);
 
 	while(true) {
         // get command from user
@@ -40,18 +44,18 @@ const Command HumanRole::play(const CardList& table) {
 		try {
             // if a play command, play the card
 			if (command.type == PLAY) {
-				command.card = *Role::playCard(table, command.card);
+				command.card = *Role::playCard(command.card);
             // if a discard command, discard the card
 			} else if(command.type == DISCARD) {
-				Role::discardCard(table, command.card);
-			}
+				Role::discardCard(command.card);
+			} // if
             // and we are done
 			break;
 		} catch (exception& e) {
             // user move was illegal, print error message and retry
 			cout << e.what() << endl;
-		}
-	}
+		} // catch
+	} // while
 
 	return command;
 }
