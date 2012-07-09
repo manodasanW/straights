@@ -7,8 +7,6 @@ EXEC = straights
 ${EXEC} : ${OBJECTS}
 	${CXX} ${OBJECTS} ${CXXFLAGS} -o ${EXEC}
 
-PlayFrame.o : DeckGUI.h
-
 clean :
 	rm -rf ${DEPENDS} ${OBJECTS} ${EXEC}
 
