@@ -1,0 +1,1 @@
+g++ DeckGUI.cpp PlayFrame.cpp ControlFrame.cpp GameWindow.cpp main.cpp -g -Wall `pkg-config gtkmm-2.4 --cflags --libs` -o straights
