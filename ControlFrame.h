@@ -3,16 +3,20 @@
 
 #include <gtkmm.h>
 
+#include "GameController.h"
+
 #include "Observer.h"
 
 class ControlFrame : public Observer {
 
 public:
-	ControlFrame();
-	virtual ~ControlFrame();
+	ControlFrame(GameController &);
+    virtual ~ControlFrame();
 	void notify();
 
 private:
+    GameController gc_;
+    
     Gtk::VBox controlArea;
     
     Gtk::Frame mainControlFrame;

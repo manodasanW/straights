@@ -1,16 +1,13 @@
 #include "GameWindow.h"
 
-GameWindow::GameWindow()
-	:gameWindow(false, 10) { 
+GameWindow::GameWindow(GameController &gc) : gc_(gc), gameWindow_(false, 10),
+    playFrame_(PlayFrame(gc)), controlFrame_(ControlFrame(gc))
+{
 	set_title("Straights");
+    
+	gameWindow_.add(playFrame_);
+	gameWindow_.add(controlFrame_);
 
-	gameWindow.add(playFrame);
-	gameWindow.add(controlFrame);
-
-	add(gameWindow);
+	add(gameWindow_);
 	show_all();
 }
-
-
-
-GameWindow::~GameWindow(){}

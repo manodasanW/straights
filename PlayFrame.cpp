@@ -1,7 +1,7 @@
 #include "PlayFrame.h"
 
-PlayFrame::PlayFrame()
-	:Observer(), playArea(false, 10), table(true, 10), hand(true, 10) { 
+PlayFrame::PlayFrame(GameController &gc)
+	: Observer(), gc_(gc), playArea(false, 10), table(true, 10), hand(true, 10) { 
 
 	tableFrame.set_label("Cards Played: ");
 	handFrame.set_label("Your hand: ");

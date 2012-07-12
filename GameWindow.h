@@ -4,19 +4,20 @@
 #include <gtkmm/window.h>
 #include <gtkmm/box.h>
 
+#include "GameController.h"
 #include "PlayFrame.h"
 #include "ControlFrame.h"
 
 class GameWindow : public Gtk::Window {
 
 public:
-	GameWindow();
-	virtual ~GameWindow();
+	explicit GameWindow(GameController &);
 
 private:
-	Gtk::HBox gameWindow;
-	PlayFrame playFrame;
-	ControlFrame controlFrame;
+    GameController gc_;
+	Gtk::HBox gameWindow_;
+	PlayFrame playFrame_;
+	ControlFrame controlFrame_;
 
 };
 
