@@ -13,8 +13,9 @@ PlayFrame::PlayFrame()
  
 	for (int suitIndex = 0; suitIndex < NUM_SUITS; suitIndex++) {
 		for (int faceIndex = 0; faceIndex < NUM_FACES; faceIndex++) {
-			suitRows[suitIndex][faceIndex] = new Gtk::Image(deckImages.getCardImage(Faces(faceIndex), Suits(suitIndex)));
-			tableRows[suitIndex]->add(*suitRows[suitIndex][faceIndex]);	
+			//suitRows[suitIndex][faceIndex] = new Gtk::Image(deckImages.getCardImage(Faces(faceIndex), Suits(suitIndex)));
+			suitRows[suitIndex][faceIndex] = new Gtk::Image(deckImages.getNullCardImage());
+            tableRows[suitIndex]->add(*suitRows[suitIndex][faceIndex]);	
 		}
 	}
 
