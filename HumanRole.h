@@ -10,7 +10,7 @@
 #include "Role.h"
 #include "Player.h"
 #include "Card.h"
-#include "CardOps.h"
+#include "CardList.h"
 
 class HumanRole : public Role {
 
@@ -18,7 +18,7 @@ class HumanRole : public Role {
 		HumanRole(Player*);                         // constructor
 		~HumanRole();                               // destructor
 
-		const Card* play(const CardList&);        // gets human move given the table
+		void play(const CardList&);     		   // gets human move given the table
 };
 
 #endif /* _HUMANROLE_H_ */

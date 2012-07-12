@@ -12,19 +12,17 @@
 #include "Card.h"
 #include "CardList.h"
 
-class Player;
-
 class Role {
 
 	public:
 		Role(Player*);												// constructor - takes player who is using this role
 		virtual ~Role();											// destructor
 
-		virtual Card* play(const CardList&) = 0;					// Performs action based on whether the player is a human or AI
+		virtual void play(const CardList&) = 0;						// Performs action based on whether the player is a human or AI
+		void playCard(const Card&);									// Plays the card given card, throws exception if illegal move
+		void discardCard(const Card&);								// Discards the card, throws exception will player can play
 
 	protected:
-		const Card* playCard(const Card&);							// Plays the card given card, throws exception if illegal move
-		void discardCard(const Card&);								// Discards the card, throws exception will player can play
 		const CardList& playerHand() const;							// Gets the hand of the player to calculate legal moves
 		const CardList& legalMoves() const;							// Gets the legal moves for the current round
 		void updateLegalMoves(const CardList&);						// updates the legal moves for the current round and takes the table as parameter

@@ -1,5 +1,5 @@
 #include "Role.h"
-#include <iostream>
+#include "Game.h"
 
 using namespace std;
 
@@ -23,21 +23,19 @@ Role::~Role() {
 **/
 
 // Plays the given card in the game
-const Card* Role::playCard(const Card& card) {
+void Role::playCard(const Card& card) {
 	const CardList legalCards = legalMoves();							// gets the card which are legal to play
 
 	// Determines whether the card being played is legal to play, otherwise exception is thrown
-	int cardIndex = CardOperations::find(legalCards, card);				
+	int cardIndex = legalCards.find(card);				
 	if(cardIndex == -1)	{
 		throw IllegalPlayException();
 	}
 	
-	// prints the result of the move to the screen
-	printMove(card, true);
-
 	//Removes the card from the hand, and returns it so it can be added to the table
-	const Card* played = CardOperations::remove(player_->hand_, card);
-	return played;
+	const Card* played = player_->hand_.remove(card);
+	player_->getGame()->playCard(played);
+	triggerPlayerUpdate(true);
 }
 
 // Discards the given card
@@ -49,12 +47,10 @@ void Role::discardCard(const Card& card) {
 		throw IllegalDiscardException();
 	}
 
-	// prints the result of the move to the screen
-	printMove(card, false);
-
 	// Removes card from hand, and adds to discard pile
-	const Card* deletedCard = CardOperations::remove(player_->hand_, card);
-	CardOperations::add(player_->discards_, deletedCard);
+	const Card* deletedCard = player_->hand_.remove(card);
+	player_->discards_.add(deletedCard);
+	triggerPlayerUpdate(true);
 }
 	
 // Gets the players hand, to use to determine legalMoves	
@@ -84,14 +80,14 @@ CardList GameLogic::legalMoves(const CardList& table, const CardList& hand) {
 	// In the case the table is empty, this means this play has 7 of spades, so he has to be forced to play it
 	if(table.size() == 0) {
 		// finds the 7S card, so we only got one instance of it
-		int index = CardOperations::find(hand, Card(SPADE, SEVEN));
+		int index = hand.find(Card(SPADE, SEVEN));
 		const Card* sevenSpades = hand[index];
-		CardOperations::add(legalMoves, sevenSpades);
+		legalMoves.add(sevenSpades);
 		return legalMoves;
 	}
  
 	// loops through hand to determine which ones are legal to play
-	for (unsigned int index = 0; index < hand.size(); index++) {
+	for (int index = 0; index < hand.size(); index++) {
 		const Card * card = hand[index];
 
 		// Stores the index of lower rank and higher rank card to determine whether it exists or not
@@ -101,17 +97,17 @@ CardList GameLogic::legalMoves(const CardList& table, const CardList& hand) {
 		// Determines whether a lower rank or higher rank card exists
 		if (card->getRank() != ACE) {
 			Card lowerRank = Card(card->getSuit(), (Rank) (card->getRank() - 1));
-			lowerRankIndex = CardOperations::find(table, lowerRank);
+			lowerRankIndex = table.find(lowerRank);
 		}
 		
 		if (card->getRank() != KING) {
 			Card higherRank = Card(card->getSuit(), (Rank)(card->getRank() + 1));
-			higherRankIndex = CardOperations::find(table, higherRank);
+			higherRankIndex = table.find(higherRank);
 		}
 
 		// Determines whether the current card is legal to play
 		if (card->getRank() == SEVEN || lowerRankIndex !=-1 || higherRankIndex != -1) {
-			CardOperations::add(legalMoves, card);
+			legalMoves.add(card);
 		}
 	}
 

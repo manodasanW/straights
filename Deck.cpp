@@ -30,7 +30,7 @@ Deck::Deck() : cards_left_(CARD_COUNT) {
 // Deck destructor
 Deck::~Deck() {
     // get rid of all playing cards
-    for (unsigned int i = 0; i < cards_.size(); i++) {
+    for (int i = 0; i < cards_.size(); i++) {
         delete cards_[i];
     }
 }
@@ -56,9 +56,7 @@ void Deck::shuffle(){
 	while ( n > 1 ) {
 		int k = (int) (lrand48() % n);
 		--n;
-		const Card *c = cards_[n];
-		cards_[n] = cards_[k];
-		cards_[k] = c;
+		cards_.swap(n,k);
 	}
 }
 

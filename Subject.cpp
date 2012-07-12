@@ -1,3 +1,4 @@
+#include "Game.h"
 #include "Subject.h"
 
 Subject::Subject(Game* game)
@@ -9,18 +10,18 @@ Subject::~Subject()
 
 Game* Subject::getGame()
 {
-	return game;
+	return gameObserver_;
 }
 
-void Subject::subscribe(Observer& observer) {
-	observers.push_back(observer);
+void Subject::subscribe(Observer* observer) {
+	observers_.push_back(observer);
 }
 
 void Subject::notify(bool notifyGame) {
-	for (int index = 0; index < observers.size(); index++) {
-		observers[index].notify();
+	for (unsigned int index = 0; index < observers_.size(); index++) {
+		observers_[index]->notify();
 	}
 	
-	if(notifyGame && game!= NULL)
-		game.notify();
+	if(notifyGame && gameObserver_!= NULL)
+		gameObserver_->notify();
 }

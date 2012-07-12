@@ -8,10 +8,9 @@
 #define _AIROLE_H_
 
 #include "Role.h"
-#include "Command.h"
 #include "Player.h"
 #include "Card.h"
-#include "CardOps.h"
+#include "CardList.h"
 
 class AIRole : public Role {
 
@@ -19,7 +18,7 @@ class AIRole : public Role {
 		AIRole(Player*);                        // constructor
 		~AIRole();                              // destructor
 
-		const Card* play(const CardList&);	// gets AI move given the table
+		void play(const CardList&);				// gets AI move given the table
 };
 
 #endif /* _AIROLE_H_ */

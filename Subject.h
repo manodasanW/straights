@@ -8,19 +8,23 @@
 #define _SUBJECT_H_
 
 #include "Observer.h"
-#include "Game.h"
+#include <vector>
+
+class Game;
 
 class Subject {
 
 public:
 	Subject(Game*);
-	~Subject();
-	void subscribe(Observer&);
+	virtual ~Subject();
+	void subscribe(Observer*);
+	Game* getGame();
+	
+	friend class Role;
 protected:
 	void notify(bool notifyGame = false);
-	Game* getGame();
 private:
-	vector<Observer&> observers_;
+	std::vector<Observer*> observers_;
 	Game* gameObserver_;
 };
 

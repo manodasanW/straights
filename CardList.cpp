@@ -2,6 +2,13 @@
 
 using namespace std;
 
+CardList::CardList()
+	:Subject(NULL) {
+}
+
+CardList::~CardList()
+{}
+
 // Adds the specified card to the list of cards
 void CardList::add(const Card* card) {
 	cardList_.push_back(card);
@@ -17,10 +24,10 @@ void CardList::reserve(int size) {
 // Returns the card which was deleted
 const Card* CardList::remove(const Card& card) {
 	// finds the index in which the card is in
-	int indexToDelete = find(cardList_, card);
+	int indexToDelete = find(card);
 	const Card* ret = cardList_[indexToDelete];
 
-	cardList_.erase(list.begin() + indexToDelete);
+	cardList_.erase(cardList_.begin() + indexToDelete);
 	notify();
 	return ret;
 }
@@ -32,7 +39,7 @@ void CardList::clear() {
 
 //Given a card, determines the index of the card in the list passed
 //Returns -1 if card is not found, otherwise the index of the card in the list
-int CardList::find(const Card& card) {
+int CardList::find(const Card& card) const {
 	// loops through all cards in list, and determines if this is the card being looked for
 	for (unsigned int index = 0; index < cardList_.size(); index++) {
 		if (*cardList_[index] == card) {
@@ -43,10 +50,20 @@ int CardList::find(const Card& card) {
 	return -1;
 }
 
-int CardList::size() {
+int CardList::size() const {
 	return cardList_.size();
 }
 
-Card* CardList::operator[](int index) {
+void CardList::swap(int index1, int index2) {
+	const Card *c = cardList_[index1];
+	cardList_[index1] = cardList_[index2];
+	cardList_[index2] = c;
+}
+
+const Card* CardList::operator[](int index) {
+	return cardList_[index]; 
+}
+
+const Card* CardList::operator[](int index) const {
 	return cardList_[index]; 
 }

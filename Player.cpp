@@ -11,7 +11,8 @@
 using namespace std;
 
 // Player constructor
-Player::Player(int id, bool is_human) : id_(id), score_(0) {
+Player::Player(int id, bool is_human, Game* game) 
+	: Subject(game), id_(id), score_(0) {
 	setRole(is_human);
 }
 
@@ -35,7 +36,6 @@ void Player::setRole(bool is_human) {
 void Player::rageQuit() {
 	// replaces human role with ai role
 	setRole(false);
-	role_->play(table);					// makes the ai play again as rage quit isn't a game command
 }
 
 // start a new round by giving the player a new set of cards
@@ -57,17 +57,23 @@ bool Player::has7OfSpades() const {
 // tells Player object to take the cards in its discard pile
 // and add them for points
 void Player::updateScore() {
-    for (unsigned int i = 0; i < discards_.size(); i++) {
+    for (int i = 0; i < discards_.size(); i++) {
         score_ += ((int)discards_[i]->getRank()) + 1;
     }
 }
 
-void Player::notify(const CardList& table) {
-	Card* ret = role->play(table);
+void Player::notifyTurn(const CardList& table) {
+	role_->play(table);
+}
 
-	if (ret != NULL) {
-		getGame()->play(ret);
-	}
+void Player::playCard(const Card& card)
+{
+	role_->playCard(card);
+}
+
+void Player::discardCard(const Card& card)
+{
+	role_->discardCard(card);
 }
 
 // id get accessor

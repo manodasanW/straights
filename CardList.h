@@ -8,18 +8,23 @@
 #define _CARDLIST_H_
 
 #include <vector>
-#include "card.h"
+#include "Card.h"
+#include "Subject.h"
 
 class CardList : public Subject {
 
 public:
+	CardList();
+	virtual ~CardList();
 	void add(const Card *);
 	void reserve(int);
 	const Card* remove(const Card&);
 	void clear ();
-	int find(const Card&);
-	int size();
-	Card* operator[](int);
+	int find(const Card&) const;
+	int size() const;
+	void swap(int, int);
+	const Card* operator[](int);
+	const Card* operator[](int) const;
 private:
 	std::vector<const Card*> cardList_;
 };

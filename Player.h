@@ -10,6 +10,7 @@
 #include "Card.h"
 #include "Role.h"
 #include "CardList.h"
+#include "Subject.h"
 
 class Role;             // forward dec.
 
@@ -18,7 +19,7 @@ class Player : public Subject {
         // constructor
         // first parameter: player id (1-4)
         // second parameter: is human?
-		Player(int, bool);
+		Player(int, bool, Game*);
 		~Player();                              // destructor
 
 		void setRole(bool);
@@ -34,8 +35,9 @@ class Player : public Subject {
 		void won(bool);
 		bool won() const;
 
-		void notify(const CardList&);
-		
+		void notifyTurn(const CardList&);
+		void playCard(const Card& card);
+		void discardCard(const Card& card);
 
 		friend class Role;
 
