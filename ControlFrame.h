@@ -13,8 +13,13 @@ public:
 	ControlFrame(GameController &);
     virtual ~ControlFrame();
 	void notify();
-
+    
+protected:
+    void on_start_click();
+    void on_end_click();
+    
 private:
+    
     GameController gc_;
     
     Gtk::VBox controlArea;

@@ -4,8 +4,7 @@
 
 ControlFrame::ControlFrame(GameController &gc)
     : Observer(), gc_(gc), controlArea(false, 10), mainControlFrame("Game Controls"), mainControl(true, 10),
-    mainButtons(true, 10),
-    startButton("Start Game"), endButton("End Game"), seedEntryControl(false, 10),
+    mainButtons(true, 10), startButton("Start Game"), endButton("End Game"), seedEntryControl(false, 10),
     seedEntryLabel("Seed:"), playerControlFrame("Player Controls"), playerControl(false, 10),
     currentPlayer("Current Player: 1"), playerControlButtons(true, 10), rageButton("Ragequit"),
     hintButton("Hint"), statsControlFrame("Stats"), statsControl(true, 10)
@@ -43,6 +42,11 @@ ControlFrame::ControlFrame(GameController &gc)
     }
     statsControlFrame.add(statsControl);
     
+    // register buttons with clicking events
+    startButton.signal_clicked().connect( sigc::mem_fun(*this, &ControlFrame::on_start_click) );
+    endButton.signal_clicked().connect( sigc::mem_fun(*this, &ControlFrame::on_end_click) );
+    endButton.set_sensitive(false);
+    
     // finally, add each major part of the control frame
     controlArea.add(mainControlFrame);
     controlArea.add(playerControlFrame);
@@ -58,3 +62,30 @@ void ControlFrame::notify()
 
 }
 
+void ControlFrame::on_start_click() {
+    if (!gc_.gameInProgress()) {
+        for (int i = 0; i < 4; i++) {
+            playerInfoBoxes[i].remove(playerTypes[i]);
+            playerInfoBoxes[i].add(playerScores[i]);
+        }
+    }
+    startButton.set_sensitive(false);
+    endButton.set_sensitive(true);
+    
+    show_all();
+    gc_.startGame();
+}
+
+void ControlFrame::on_end_click() {
+    if (gc_.gameInProgress()) {
+        for (int i = 0; i < 4; i++) {
+            playerInfoBoxes[i].remove(playerScores[i]);
+            playerInfoBoxes[i].add(playerTypes[i]);
+        }
+    }
+    startButton.set_sensitive(true);
+    endButton.set_sensitive(false);
+    
+    show_all();
+    gc_.endGame();
+}
