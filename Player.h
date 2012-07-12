@@ -7,20 +7,21 @@
 #ifndef _PLAYER_H_
 #define _PLAYER_H_
 
-#include "Command.h"
 #include "Card.h"
 #include "Role.h"
-#include "CardOps.h"
+#include "CardList.h"
 
 class Role;             // forward dec.
 
-class Player {
+class Player : public Subject {
 	public:
         // constructor
         // first parameter: player id (1-4)
         // second parameter: is human?
 		Player(int, bool);
 		~Player();                              // destructor
+
+		void setRole(bool);
 
 		void newRound(const CardList&);         // tells the player to setup for a new round
         void endRound();                        // tells the player to perform end-round housekeeping
@@ -29,6 +30,12 @@ class Player {
 
 		int id() const;                         // id get accessor
 		int score() const;                      // score get accessor
+
+		void won(bool);
+		bool won() const;
+
+		void notify(const CardList&);
+		
 
 		friend class Role;
 
@@ -40,6 +47,7 @@ class Player {
 		CardList discards_;                     // player discards
 		int id_;                                // player id (1-4)
 		int score_;                             // player score
+		bool won_;								// whether player won game
 };
 
 #endif /* _PLAYER_H_ */

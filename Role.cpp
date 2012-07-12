@@ -73,14 +73,9 @@ void Role::updateLegalMoves(const CardList& table) {
 	legalMoves_ = GameLogic::legalMoves(table, hand);		// calls helper function to obtain legal cards
 }
 
-// Prints the result of a play, whether it was play or discard
-void Role::printMove(const Card& card, bool play) {
-	int playerId = player_->id();							// obtains the id of the play to output
-	string move = play ? " plays " : " discards ";			// determines whether it is a play or discard
-
-	cout << "Player " << playerId << move << card << "." << endl;
+void Role::triggerPlayerUpdate(bool notifyGame) {
+	player_->notify(notifyGame);
 }
-
 
 //Given the cards already played by all players and a player's hand, determines the legal cards which can be played by the player
 CardList GameLogic::legalMoves(const CardList& table, const CardList& hand) {

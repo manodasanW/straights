@@ -22,7 +22,7 @@ Deck::Deck() : cards_left_(CARD_COUNT) {
     for (int s = 0; s < SUIT_COUNT; s++) {
         for (int r = 0; r < RANK_COUNT; r++) {
             Card *c = new Card((Suit)s, (Rank)r);
-            cards_.push_back(c);
+            cards_.add(c);
         }
     }
 }
@@ -71,7 +71,7 @@ CardList Deck::dealPlayerHand() {
     for (int i = 0; i < HAND_SIZE; i++) {
         int index = CARD_COUNT - cards_left_ + i;
         if (index >= 0) {
-            hand.push_back(cards_[index]);
+            hand.add(cards_[index]);
         }
     }
     
@@ -79,18 +79,4 @@ CardList Deck::dealPlayerHand() {
     cards_left_ -= HAND_SIZE;
     
     return hand;
-}
-
-// for use with cout and family
-ostream & operator<<(ostream &o, const Deck &d) {
-    int index = 0;
-    // 13 cards/line
-    for (int i = 0; i < SUIT_COUNT; i++) {
-        for (int j = 0; j < RANK_COUNT; j++) {
-			o << *d.cards_[index] << " ";
-            index++;
-        }
-        o << endl;
-    }
-    return o;
 }

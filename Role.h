@@ -10,8 +10,7 @@
 #include <exception>
 #include "Player.h"
 #include "Card.h"
-#include "Command.h"
-#include "CardOps.h"
+#include "CardList.h"
 
 class Player;
 
@@ -21,7 +20,7 @@ class Role {
 		Role(Player*);												// constructor - takes player who is using this role
 		virtual ~Role();											// destructor
 
-		virtual const Command play(const CardList&) = 0;			// Performs action based on whether the player is a human or AI
+		virtual Card* play(const CardList&) = 0;					// Performs action based on whether the player is a human or AI
 
 	protected:
 		const Card* playCard(const Card&);							// Plays the card given card, throws exception if illegal move
@@ -29,6 +28,7 @@ class Role {
 		const CardList& playerHand() const;							// Gets the hand of the player to calculate legal moves
 		const CardList& legalMoves() const;							// Gets the legal moves for the current round
 		void updateLegalMoves(const CardList&);						// updates the legal moves for the current round and takes the table as parameter
+		void triggerPlayerUpdate(bool);
 
 		// Exception classes
 		class IllegalPlayException : public std::exception {	
@@ -45,8 +45,6 @@ class Role {
 				const char* what() const throw();					// reason for exception
 		};
 	private:
-		void printMove(const Card&, bool);							// prints the result of the play action
-
 		Player* player_;											// the player who is using this role
 		CardList legalMoves_;									// stores the legal moves for the current round
 };

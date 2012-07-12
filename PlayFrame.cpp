@@ -1,7 +1,7 @@
 #include "PlayFrame.h"
 
 PlayFrame::PlayFrame()
-	:playArea(false, 10), table(true, 10), hand(true, 10) { 
+	:Observer(), playArea(false, 10), table(true, 10), hand(true, 10) { 
 
 	tableFrame.set_label("Cards Played: ");
 	handFrame.set_label("Your hand: ");
@@ -37,7 +37,10 @@ PlayFrame::PlayFrame()
 	add(playArea);
 }
 
+void PlayFrame::notify()
+{
 
+}
 
 PlayFrame::~PlayFrame()
 {

@@ -3,11 +3,14 @@
 
 #include <gtkmm.h>
 
-class ControlFrame : public Gtk::Frame {
+#include "Observer.h"
+
+class ControlFrame : public Observer {
 
 public:
 	ControlFrame();
 	virtual ~ControlFrame();
+	void notify();
 
 private:
     Gtk::VBox controlArea;

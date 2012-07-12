@@ -2,7 +2,8 @@
 #include <string>
 #include <sstream>
 
-ControlFrame::ControlFrame() : controlArea(false, 10), mainControlFrame("Game Controls"), mainControl(true, 10),
+ControlFrame::ControlFrame() 
+	:Observer(), controlArea(false, 10), mainControlFrame("Game Controls"), mainControl(true, 10),
     mainButtons(true, 10),
     startButton("Start Game"), endButton("End Game"), seedEntryControl(false, 10),
     seedEntryLabel("Seed:"), playerControlFrame("Player Controls"), playerControl(false, 10),
@@ -47,6 +48,11 @@ ControlFrame::ControlFrame() : controlArea(false, 10), mainControlFrame("Game Co
     controlArea.add(playerControlFrame);
     controlArea.add(statsControlFrame);
     add(controlArea);
+}
+
+void ControlFrame::notify()
+{
+
 }
 
 ControlFrame::~ControlFrame() {

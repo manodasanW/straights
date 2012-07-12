@@ -18,10 +18,7 @@ class HumanRole : public Role {
 		HumanRole(Player*);                         // constructor
 		~HumanRole();                               // destructor
 
-		const Command play(const CardList&);        // gets human move given the table
-	
-	private:
-		bool inputIncomplete;						// whether we are expecting more input from user this turn
+		const Card* play(const CardList&);        // gets human move given the table
 };
 
 #endif /* _HUMANROLE_H_ */

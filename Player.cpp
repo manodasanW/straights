@@ -1,19 +1,28 @@
 /*
  Player.cpp
  
- Definitions for Player.h.
+ Definitions for Player
  */
 
 #include "Card.h"
 #include "AIRole.h"
 #include "HumanRole.h"
 
-#include <iostream>
-
 using namespace std;
 
 // Player constructor
 Player::Player(int id, bool is_human) : id_(id), score_(0) {
+	setRole(is_human);
+}
+
+// Player destructor
+Player::~Player() {
+    delete role_;
+}
+
+void Player::setRole(bool is_human) {
+	delete role_;
+	
     if (is_human) {
         role_ = new HumanRole(this);
     }
@@ -22,17 +31,11 @@ Player::Player(int id, bool is_human) : id_(id), score_(0) {
     }
 }
 
-// Player destructor
-Player::~Player() {
-    delete role_;
-}
-
 // switches current player with a role of AI
 void Player::rageQuit() {
-		// replaces human role with ai role
-        delete role_;
-        role_ = new AIRole(this);
-		role_->play(table);					// makes the ai play again as rage quit isn't a game command
+	// replaces human role with ai role
+	setRole(false);
+	role_->play(table);					// makes the ai play again as rage quit isn't a game command
 }
 
 // start a new round by giving the player a new set of cards
@@ -43,18 +46,12 @@ void Player::newRound(const CardList &new_cards) {
 
 // handle the end of round for the player
 void Player::endRound() {
-    int old_score = score_;
     updateScore();
-    // print player info
-    cout << "Player " << id_ << "'s discards: ";
-    CardOperations::printUnFormatted(discards_);
-    cout << "Player " << id_ << "'s score: " << old_score << " + ";
-    cout << (score_ - old_score) << " = " << score_ << endl;
 }
 
 // find out if the player possesses the 7 of spades
 bool Player::has7OfSpades() const {
-    return CardOperations::find(hand_, Card(SPADE, SEVEN)) != -1;
+    return hand_.find(Card(SPADE, SEVEN)) != -1;
 }
 
 // tells Player object to take the cards in its discard pile
@@ -65,6 +62,14 @@ void Player::updateScore() {
     }
 }
 
+void Player::notify(const CardList& table) {
+	Card* ret = role->play(table);
+
+	if (ret != NULL) {
+		getGame()->play(ret);
+	}
+}
+
 // id get accessor
 int Player::id() const {
     return id_;
@@ -73,4 +78,13 @@ int Player::id() const {
 // score get accessor
 int Player::score() const {
     return score_;
+}
+
+// won mutator
+void Player::won(bool newVal) {
+	won_ = newVal;
+}
+// won accessor
+bool Player::won() const {
+	return won_;
 }

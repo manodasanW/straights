@@ -2,19 +2,19 @@
 #define PLAY_FRAME
 
 #include <gtkmm/box.h>
-#include <gtkmm/frame.h>
 #include <gtkmm/image.h>
 
 #include <vector>
 
 #include "DeckGUI.h"
+#include "Observer.h"
 
-
-class PlayFrame : public Gtk::Frame {
+class PlayFrame : public Observer {
 
 public:
 	PlayFrame();
 	virtual ~PlayFrame();
+	void notify();
 
 private:
 	Gtk::VBox playArea;

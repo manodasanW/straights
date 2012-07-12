@@ -7,9 +7,17 @@ using namespace std;
 	Constructor/Destructor
 **/
 HumanRole::HumanRole(Player* player)
-		:Role(player), inputIncomplete(false) {
+		:Role(player) {
 }
 
 HumanRole::~HumanRole()
 {
 }
+
+// does nothing as GUI takes care of playing
+Card* HumanRole::play(const CardList& table)
+{
+	triggerPlayerUpdate(false);
+	return NULL;
+}
+

@@ -19,7 +19,7 @@ class AIRole : public Role {
 		AIRole(Player*);                        // constructor
 		~AIRole();                              // destructor
 
-		const Command play(const CardList&);	// gets AI move given the table
+		const Card* play(const CardList&);	// gets AI move given the table
 };
 
 #endif /* _AIROLE_H_ */
