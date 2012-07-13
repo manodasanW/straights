@@ -15,7 +15,7 @@
 
 class Player;		// forward declaration to prevent circular dependencies
 
-// Game class - fascade class
+// Game class - facade class
 class Game {
 
 public:

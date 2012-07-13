@@ -1,0 +1,9 @@
+CS247 Project 2 Bonus Features
+
+1. Smarter AI
+
+The AI now chooses the highest possible card to play (with 7 as a last resort) and if it's forced to discard, it chooses the lowest discard possible, to minimize score.
+
+2. Hint
+
+If a human player selects hint, the game provides the first legal move as a hint (displayed as a black box around the card), or the first discard if there are no legal moves available.
