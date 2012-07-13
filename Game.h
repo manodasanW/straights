@@ -62,6 +62,7 @@ private:
 	CardList table_; 	            				// played cards
 	
 	void gameOver();								// Calculates winner
+	void cleanUpCards();							// clears all cards from hand, deck, table
 };
 
 #endif /* _GAME_H_ */

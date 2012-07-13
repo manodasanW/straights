@@ -58,6 +58,13 @@ void Player::endRound() {
 	notify();
 }
 
+// handles the end of the game
+void Player::endGame() {
+	// clears hand and notifies gui of update
+	hand_.clear();
+	notify();
+}
+
 // find out if the player possesses the 7 of spades
 bool Player::has7OfSpades() const {
 	return hand_.find(Card(SPADE, SEVEN)) != -1;

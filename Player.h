@@ -26,6 +26,7 @@ class Player : public Subject {
 
 		void newRound(const CardList&);         // tells the player to setup for a new round
         void endRound();                        // tells the player to perform end-round housekeeping
+		void endGame();							// tells player game is over to perform housekeeping
 		void rageQuit();						// switches the role of the player from human to computer
         bool has7OfSpades() const;              // for determining who goes first
 

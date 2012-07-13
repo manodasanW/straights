@@ -221,10 +221,22 @@ void Game::endRound() {
 	}
 }
 
-// if user wants to end game prematurely
+// user decides to end early
 void Game::endGame() {
+	gameOver_ = false;	// reset flag
+	cleanUpCards();
+}
+
+// cleans up the cards
+void Game::cleanUpCards() {
+	// clears table and reset deck
     table_.clear();
     game_deck_.reset();
+	
+	// clears hand
+	for (unsigned i = 0; i < players_.size(); i++) {
+		players_[i]->endGame();
+	}
 }
 
 // Called when game is over - determines winner
@@ -246,6 +258,9 @@ void Game::gameOver() {
 		}
 	}
     
+	// clear table
+	cleanUpCards();
+
     // inform them they won
     for (unsigned int i = 0; i < winners.size(); i++) {
 		// sets the game is over when the last player is being set so GUI doesnt get informed multiple times
@@ -254,7 +269,4 @@ void Game::gameOver() {
 
         players_[winners[i]-1]->won(true);
     }
-
-	// clear table
-	endGame();
 }

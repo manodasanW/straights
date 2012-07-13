@@ -131,7 +131,7 @@ void PlayFrame::notify()
         for (int i = 0; i < 4; i++) {
             msg += "Player " + helper::num2str(i+1) + " info:\n";
             msg += "- Score: " + helper::num2str(g_->getScore(i)) + "\n";
-            msg += "- # Discards: " + helper::num2str(g_->getDiscardCount(i)) + "\n";
+            msg += "- # Discards: " + helper::num2str(g_->getDiscardCount(i)) + "\n\n";
         }
         endRoundLabel.set_label(msg.c_str());
         endRoundDialog.show_all_children();
