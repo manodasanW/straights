@@ -31,14 +31,17 @@ class Player : public Subject {
 
 		int id() const;                         // id get accessor
 		int score() const;                      // score get accessor
+        const CardList &playerHand() const;     // player hand get accessor
 
 		void won(bool);
 		bool won() const;
-
+    
+        void resetScore();
+    
 		void notifyTurn(const CardList&);
 		void playCard(const Card& card);
 		void discardCard(const Card& card);
-
+    
 		friend class Role;
 
 	private:

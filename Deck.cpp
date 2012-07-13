@@ -17,13 +17,7 @@ namespace {
 
 // Deck constructor
 Deck::Deck() : cards_left_(CARD_COUNT) {
-    // add all standard playing cards to deck in order
-    for (int s = 0; s < SUIT_COUNT; s++) {
-        for (int r = 0; r < RANK_COUNT; r++) {
-            Card *c = new Card((Suit)s, (Rank)r);
-            cards_.add(c);
-        }
-    }
+    reset();
 }
 
 // Deck destructor
@@ -57,6 +51,24 @@ void Deck::shuffle(){
 		--n;
 		cards_.swap(n,k);
 	}
+}
+
+// resets deck to sorted state
+void Deck::reset() {
+    // easiest to wipe out deck and recreate it
+    
+    for (int i = 0; i < cards_.size(); i++) {
+        delete cards_[i];
+    }
+    
+    cards_.clear();
+    
+    for (int s = 0; s < SUIT_COUNT; s++) {
+        for (int r = 0; r < RANK_COUNT; r++) {
+            Card *c = new Card((Suit)s, (Rank)r);
+            cards_.add(c);
+        }
+    }
 }
 
 // returns a vector of 13 cards for a player to use

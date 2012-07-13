@@ -22,8 +22,11 @@ public:
 	~Game();
 
 	//Accessors
-	Player* getPlayer(int) const;
-
+    int getCurrentPlayerId() const;
+    int getScore(int) const;
+    const CardList &getPlayerHand(int) const;
+    const CardList &getTable() const;
+    
 	//Mutators
 	void seed(int);
 	void setPlayerType(int,bool);

@@ -4,7 +4,7 @@
 #include <gtkmm.h>
 
 #include "GameController.h"
-
+#include "Game.h"
 #include "Observer.h"
 
 class ControlFrame : public Observer {

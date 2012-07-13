@@ -1,14 +1,29 @@
 #include "ControlFrame.h"
 #include <string>
+#include <iostream>
 #include <sstream>
 
 using namespace std;
+
+namespace helper {
+    string num2str(int n) {
+        stringstream ss;
+        ss << n;
+        return ss.str();
+    }
+    
+    int str2num(string s) {
+        stringstream ss(s);
+        int n;
+        return (ss >> n) ? n : 0;
+    }
+}
 
 ControlFrame::ControlFrame(GameController *gc, Game *g)
     : Observer(), gc_(gc), g_(g), controlArea(false, 10), mainControlFrame("Game Controls"), mainControl(true, 10),
     mainButtons(true, 10), startButton("Start Game"), endButton("End Game"), seedEntryControl(false, 10),
     seedEntryLabel("Seed:"), playerControlFrame("Player Controls"), playerControl(false, 10),
-    currentPlayer("Current Player: 1"), playerControlButtons(true, 10), rageButton("Ragequit"),
+    currentPlayer("Current Player: (none)"), playerControlButtons(true, 10), rageButton("Ragequit"),
     hintButton("Hint"), statsControlFrame("Stats"), statsControl(true, 10)
 {
     // main control frame components (start/end, seed entry)
@@ -33,9 +48,7 @@ ControlFrame::ControlFrame(GameController *gc, Game *g)
     
     // stats control frame components
     for (int i = 0; i < 4; i++) {
-        stringstream ss;
-        ss << (i+1);
-        playerInfoLabels[i].set_label(std::string("Player " + ss.str()).c_str());
+        playerInfoLabels[i].set_label(string("Player " + helper::num2str(i+1)).c_str());
         playerScores[i].set_label("Score: 0");
         playerTypes[i].set_label("Human");
         playerTypeBools[i] = false;
@@ -58,6 +71,9 @@ ControlFrame::ControlFrame(GameController *gc, Game *g)
     controlArea.add(playerControlFrame);
     controlArea.add(statsControlFrame);
     add(controlArea);
+    
+    // subscribe self to observers
+    g_->subscribeView(this);
 }
 
 ControlFrame::~ControlFrame() {
@@ -65,7 +81,14 @@ ControlFrame::~ControlFrame() {
 
 void ControlFrame::notify()
 {
-
+    // update display of whose turn it is
+    int currPlayer = g_->getCurrentPlayerId() + 1;
+    currentPlayer.set_label(string("Current Player: " + helper::num2str(currPlayer)).c_str());
+    
+    // update score displays
+    for (int i = 0; i < 4; i++) {
+        playerScores[i].set_label(string("Score: " + helper::num2str(g_->getScore(i))).c_str());
+    }
 }
 
 void ControlFrame::on_start_click() {
@@ -81,12 +104,7 @@ void ControlFrame::on_start_click() {
     show_all();
     
     string seed_str = seedEntry.get_text();
-    istringstream buffer(seed_str);
-    int seed;
-    if (!(buffer >> seed)) {
-        seed = 0;
-    }
-    gc_->startGame(seed, playerTypeBools);
+    gc_->startGame(helper::str2num(seed_str), playerTypeBools);
 }
 
 void ControlFrame::on_end_click() {
@@ -99,6 +117,7 @@ void ControlFrame::on_end_click() {
     startButton.set_sensitive(true);
     endButton.set_sensitive(false);
     
+    currentPlayer.set_label("Current Player: (none)");
     show_all();
     gc_->endGame();
 }

@@ -88,10 +88,21 @@ int Player::score() const {
     return score_;
 }
 
+// hand get accessor
+const CardList &Player::playerHand() const {
+    return hand_;
+}
+
+// score reset
+void Player::resetScore() {
+    score_ = 0;
+}
+
 // won mutator
 void Player::won(bool newVal) {
 	won_ = newVal;
 }
+
 // won accessor
 bool Player::won() const {
 	return won_;

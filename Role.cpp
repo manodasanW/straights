@@ -55,7 +55,7 @@ void Role::discardCard(const Card& card) {
 	
 // Gets the players hand, to use to determine legalMoves	
 const CardList& Role::playerHand() const {
-	return player_->hand_;
+	return player_->playerHand();
 }
 
 // Gets the card which are legal to play

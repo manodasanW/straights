@@ -46,17 +46,31 @@ void Game::playerRageQuit(int id) {
 	
 }
 
-Player* Game::getPlayer(int id) const {
-	return players_[id];
+// player id get accessor
+int Game::getCurrentPlayerId() const {
+    return currPlayer_;
 }
 
-void Game::playCard(int id, const Card& card)
-{
+// get score by player id
+int Game::getScore(int id) const {
+    return players_[id]->score();
+}
+
+// get player hand by id
+const CardList &Game::getPlayerHand(int id) const {
+    return players_[id]->playerHand();
+}
+
+// get game table
+const CardList &Game::getTable() const {
+    return table_;
+}
+
+void Game::playCard(int id, const Card& card) {
 	players_[id]->playCard(card);
 }
 
-void Game::discardCard(int id, const Card& card)
-{
+void Game::discardCard(int id, const Card& card) {
 	players_[id]->discardCard(card);
 }
 
@@ -66,6 +80,9 @@ void Game::playCard(const Card* card) {
 
 void Game::startNewGame() {
 	srand48(seed_);
+    for (unsigned int i = 0; i < players_.size(); i++) {
+        players_[i]->resetScore();
+    }
 	newRound();
 }
 
@@ -120,6 +137,7 @@ void Game::endRound() {
 // if user wants to end game prematurely
 void Game::endGame() {
     table_.clear();
+    game_deck_.reset();
 }
 
 void Game::gameOver() {
@@ -143,5 +161,5 @@ void Game::gameOver() {
     }
 
 	// clear table
-	table_.clear();
+	endGame();
 }

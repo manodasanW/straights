@@ -19,6 +19,7 @@ class Deck {
 		~Deck();														//destructor
         void repopulate();												//Refills the deck with cards 
 		void shuffle();													//Shuffles the deck of cards
+        void reset();                                                   // resets deck to sorted state
         CardList dealPlayerHand();										//Gives out 13 cards to the play
 
 	private:
