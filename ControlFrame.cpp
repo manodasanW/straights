@@ -122,8 +122,8 @@ void ControlFrame::on_end_click() {
     endButton.set_sensitive(false);
     
 	// removes current player counter, and tells controller to end the game
-    currentPlayer.set_label("Current Player: (none)");
     gc_->endGame();
+    currentPlayer.set_label("Current Player: (none)");
     
     show_all();
 }

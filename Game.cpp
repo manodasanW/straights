@@ -229,14 +229,14 @@ void Game::endGame() {
 
 // cleans up the cards
 void Game::cleanUpCards() {
-	// clears table and reset deck
-    table_.clear();
-    game_deck_.reset();
-	
 	// clears hand
 	for (unsigned i = 0; i < players_.size(); i++) {
 		players_[i]->endGame();
 	}
+
+	// clears table and reset deck
+    table_.clear();
+    game_deck_.reset();	
 }
 
 // Called when game is over - determines winner
