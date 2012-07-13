@@ -33,7 +33,7 @@ public:
 	void seed(int);									// allows to set seed value
 	void setPlayerType(int,bool);					// sets what type (AI, HUMAN) the given player is
 	void playerRageQuit();							// performs a rage quit on the current player
-	void play(const Card& card);					// makes the current player play the given card
+	bool play(const Card& card);					// makes the current player play the given card, returns false if can not be played
 	void addToTable(const Card*);					// adds the given card to the table (card was played)
 	void startNewGame();							// starts a new game - resets variables and table
 	void endGame();									// ends the current game

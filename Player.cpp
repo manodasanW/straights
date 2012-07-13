@@ -116,6 +116,7 @@ bool Player::hasLegalMoves() const {
 // score reset
 void Player::resetScore() {
     score_ = 0;
+	won_ = false;
 }
 
 // won mutator

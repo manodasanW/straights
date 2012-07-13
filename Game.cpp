@@ -53,7 +53,7 @@ int Game::getCurrentPlayerId() const {
 }
 
 // Given a card determines whether the user should be playing it or discarding it, and performs the appropriate action
-void Game::play(const Card& card)
+bool Game::play(const Card& card)
 {
 	// check for legal moves, if there is the player is playing otherwise discarding
 	if(players_[currPlayer_]->hasLegalMoves()) {
@@ -61,12 +61,14 @@ void Game::play(const Card& card)
             players_[currPlayer_]->playCard(card);
         }
         catch (Role::IllegalPlayException &e) {
-            // do nothing
+            return false;
         }
 	}
 	else {
 		players_[currPlayer_]->discardCard(card);
 	} 
+
+	return true;
 }
 
 // get score by player id
