@@ -52,27 +52,32 @@ void Player::endRound() {
 
 // find out if the player possesses the 7 of spades
 bool Player::has7OfSpades() const {
-    return hand_.find(Card(SPADE, SEVEN)) != -1;
+	return hand_.find(Card(SPADE, SEVEN)) != -1;
 }
 
 // tells Player object to take the cards in its discard pile
 // and add them for points
 void Player::updateScore() {
-    for (int i = 0; i < discards_.size(); i++) {
-        score_ += ((int)discards_[i]->getRank()) + 1;
-    }
+	// sums up the discards
+	for (int i = 0; i < discards_.size(); i++) {
+		score_ += ((int)discards_[i]->getRank()) + 1;
+	}
 }
 
+// called when it is the players turn to play
 void Player::notifyTurn(const CardList& table) {
+	// updates legal moves, and depending on if AI or Human either passes control to GUI or plays
 	updateLegalMoves(table);
 	role_->play();
 }
 
+// Plays the given card, called from GUI
 void Player::playCard(const Card& card)
 {
 	role_->playCard(card);
 }
 
+// Discards the given card, called from GUI
 void Player::discardCard(const Card& card)
 {
 	role_->discardCard(card);

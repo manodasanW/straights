@@ -129,19 +129,29 @@ void Game::notify() {
 	players_[currPlayer_]->notifyTurn(table_);
 }
 
+// Called when all players are done playing their cards
 void Game::endRound() {
 	// update players' score
 	// also check to see if any player has score >= 80
+	bool over = false;
+
 	for (unsigned int i = 0; i < players_.size(); i++) {
+		// informs each player round is over
 		players_[i]->endRound();
             
 		// mark game as over if score >= 80
 		if (players_[i]->score() >= ENDGAME_SCORE) {
-			gameOver();
-			return;
+			over = true;
 		}    
 	}
-	newRound();
+
+	// checks if game is over, if so ends otherwise another round
+	if(over) {
+		gameOver();
+	}
+	else {
+		newRound();
+	}
 }
 
 // if user wants to end game prematurely
