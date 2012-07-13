@@ -10,7 +10,7 @@
 class ControlFrame : public Observer {
 
 public:
-	ControlFrame(GameController &);
+	ControlFrame(GameController *, Game *);
     virtual ~ControlFrame();
 	void notify();
     
@@ -18,9 +18,12 @@ protected:
     void on_start_click();
     void on_end_click();
     
+    void on_player_type_click(int);
+    
 private:
     
-    GameController gc_;
+    GameController *gc_;
+    Game *g_;
     
     Gtk::VBox controlArea;
     
@@ -45,6 +48,7 @@ private:
     Gtk::HBox playerInfoBoxes[4];
     Gtk::Label playerInfoLabels[4];
     Gtk::Label playerScores[4];
+    bool playerTypeBools[4];
     Gtk::Button playerTypes[4];
 };
 

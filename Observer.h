@@ -12,6 +12,7 @@
 class Observer : public Gtk::Frame {
 
 public:
+    virtual ~Observer() {}
 	virtual void notify() = 0;
 
 };

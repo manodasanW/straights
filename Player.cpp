@@ -12,7 +12,7 @@ using namespace std;
 
 // Player constructor
 Player::Player(int id, bool is_human, Game* game) 
-	: Subject(game), id_(id), score_(0) {
+	: Subject(game), role_(NULL), id_(id), score_(0), won_(false) {
 	setRole(is_human);
 }
 

@@ -14,21 +14,22 @@
 class PlayFrame : public Observer {
 
 public:
-	PlayFrame(GameController &);
+	PlayFrame(GameController *, Game *);
 	virtual ~PlayFrame();
 	void notify();
 
 private:
-    GameController gc_;
+    GameController *gc_;
+    Game *g_;
     
 	Gtk::VBox playArea;
 
-	Gtk::Image* suitRows [NUM_SUITS][NUM_FACES];
+	Gtk::Image* suitRows [SUIT_COUNT][RANK_COUNT];
 	Gtk::Frame tableFrame;
 	Gtk::VBox table;
 	std::vector<Gtk::HBox*> tableRows;
 
-	Gtk::Image* handImages [NUM_FACES];
+	Gtk::Image* handImages [RANK_COUNT];
 	Gtk::Frame handFrame;
 	Gtk::HBox hand;
 

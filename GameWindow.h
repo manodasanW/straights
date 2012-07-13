@@ -11,10 +11,9 @@
 class GameWindow : public Gtk::Window {
 
 public:
-	explicit GameWindow(GameController &);
+	GameWindow(GameController *, Game *);
 
 private:
-    GameController gc_;
 	Gtk::HBox gameWindow_;
 	PlayFrame playFrame_;
 	ControlFrame controlFrame_;

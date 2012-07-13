@@ -1,30 +1,30 @@
 #include "PlayFrame.h"
 
-PlayFrame::PlayFrame(GameController &gc)
-	: Observer(), gc_(gc), playArea(false, 10), table(true, 10), hand(true, 10) { 
+PlayFrame::PlayFrame(GameController *gc, Game *g)
+	: Observer(), gc_(gc), g_(g), playArea(false, 10), table(true, 10), hand(true, 10) { 
 
 	tableFrame.set_label("Cards Played: ");
 	handFrame.set_label("Your hand: ");
 
-	for (int tableRowsIndex = 0; tableRowsIndex < NUM_SUITS; tableRowsIndex++)
+	for (int tableRowsIndex = 0; tableRowsIndex < SUIT_COUNT; tableRowsIndex++)
 	{
-		tableRows.push_back(new Gtk::HBox(true, 10));
+		tableRows.push_back(Gtk::manage(new Gtk::HBox(true, 10)));
 	}
  
-	for (int suitIndex = 0; suitIndex < NUM_SUITS; suitIndex++) {
-		for (int faceIndex = 0; faceIndex < NUM_FACES; faceIndex++) {
+	for (int suitIndex = 0; suitIndex < SUIT_COUNT; suitIndex++) {
+		for (int faceIndex = 0; faceIndex < RANK_COUNT; faceIndex++) {
 			//suitRows[suitIndex][faceIndex] = new Gtk::Image(deckImages.getCardImage(Faces(faceIndex), Suits(suitIndex)));
-			suitRows[suitIndex][faceIndex] = new Gtk::Image(deckImages.getNullCardImage());
+			suitRows[suitIndex][faceIndex] = Gtk::manage(new Gtk::Image(deckImages.getNullCardImage()));
             tableRows[suitIndex]->add(*suitRows[suitIndex][faceIndex]);	
 		}
 	}
 
-	for (int handIndex = 0; handIndex < NUM_FACES; handIndex++) {
-		handImages[handIndex] = new Gtk::Image(deckImages.getNullCardImage());
+	for (int handIndex = 0; handIndex < RANK_COUNT; handIndex++) {
+		handImages[handIndex] = Gtk::manage(new Gtk::Image(deckImages.getNullCardImage()));
 		hand.add(*handImages[handIndex]);
 	} 	
 
-	for (int tableIndex = 0; tableIndex < NUM_SUITS; tableIndex++) {
+	for (int tableIndex = 0; tableIndex < SUIT_COUNT; tableIndex++) {
 		table.add(*tableRows[tableIndex]);
 	}
 
@@ -44,18 +44,5 @@ void PlayFrame::notify()
 
 PlayFrame::~PlayFrame()
 {
-	for (int suitIndex = 0; suitIndex < NUM_SUITS; suitIndex++) {
-		for (int faceIndex = 0; faceIndex < NUM_FACES; faceIndex++) {
-			delete suitRows[suitIndex][faceIndex];
-		}
-	}
-	
-	for (int handIndex = 0; handIndex < NUM_FACES; handIndex++) {
-		delete handImages[handIndex];
-	}
-
-	for (unsigned int tableRowsIndex = 0; tableRowsIndex < tableRows.size(); tableRowsIndex++) {
-		delete tableRows[tableRowsIndex];
-	}
 }
 

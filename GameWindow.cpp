@@ -1,7 +1,7 @@
 #include "GameWindow.h"
 
-GameWindow::GameWindow(GameController &gc) : gc_(gc), gameWindow_(false, 10),
-    playFrame_(gc), controlFrame_(gc)
+GameWindow::GameWindow(GameController *gc, Game *g) : gameWindow_(false, 10),
+    playFrame_(gc, g), controlFrame_(gc, g)
 {
 	set_title("Straights");
     

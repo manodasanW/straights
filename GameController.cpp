@@ -1,10 +1,7 @@
 #include "GameController.h"
-#include <iostream>
-
-using namespace std;
 
 // ctor
-GameController::GameController() : game_in_progress_(false) {
+GameController::GameController(Game *g) : g_(g), game_in_progress_(false) {
 }
 
 // dtor
@@ -17,13 +14,17 @@ bool GameController::gameInProgress() const {
 }
 
 // starts a new game
-void GameController::startGame() {
-    cout << "Starting game..." << endl;
+void GameController::startGame(int gseed, bool *playerTypes) {
+    g_->seed(gseed);
+    for (int i = 0; i < 4; i++) {
+        g_->setPlayerType(i, !playerTypes[i]);
+    }
+    g_->startNewGame();
     game_in_progress_ = true;
 }
 
 // ends current game
 void GameController::endGame() {
-    cout << "Ending game..." << endl;
+    g_->endGame();
     game_in_progress_ = false;
 }

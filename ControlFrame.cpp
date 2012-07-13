@@ -2,8 +2,10 @@
 #include <string>
 #include <sstream>
 
-ControlFrame::ControlFrame(GameController &gc)
-    : Observer(), gc_(gc), controlArea(false, 10), mainControlFrame("Game Controls"), mainControl(true, 10),
+using namespace std;
+
+ControlFrame::ControlFrame(GameController *gc, Game *g)
+    : Observer(), gc_(gc), g_(g), controlArea(false, 10), mainControlFrame("Game Controls"), mainControl(true, 10),
     mainButtons(true, 10), startButton("Start Game"), endButton("End Game"), seedEntryControl(false, 10),
     seedEntryLabel("Seed:"), playerControlFrame("Player Controls"), playerControl(false, 10),
     currentPlayer("Current Player: 1"), playerControlButtons(true, 10), rageButton("Ragequit"),
@@ -31,11 +33,15 @@ ControlFrame::ControlFrame(GameController &gc)
     
     // stats control frame components
     for (int i = 0; i < 4; i++) {
-        std::stringstream ss;
+        stringstream ss;
         ss << (i+1);
         playerInfoLabels[i].set_label(std::string("Player " + ss.str()).c_str());
         playerScores[i].set_label("Score: 0");
         playerTypes[i].set_label("Human");
+        playerTypeBools[i] = false;
+        playerTypes[i].signal_clicked().connect( sigc::bind (
+            sigc::mem_fun(*this, &ControlFrame::on_player_type_click), i)
+        );
         playerInfoBoxes[i].add(playerInfoLabels[i]);
         playerInfoBoxes[i].add(playerTypes[i]);
         statsControl.add(playerInfoBoxes[i]);
@@ -63,7 +69,7 @@ void ControlFrame::notify()
 }
 
 void ControlFrame::on_start_click() {
-    if (!gc_.gameInProgress()) {
+    if (!gc_->gameInProgress()) {
         for (int i = 0; i < 4; i++) {
             playerInfoBoxes[i].remove(playerTypes[i]);
             playerInfoBoxes[i].add(playerScores[i]);
@@ -73,11 +79,18 @@ void ControlFrame::on_start_click() {
     endButton.set_sensitive(true);
     
     show_all();
-    gc_.startGame();
+    
+    string seed_str = seedEntry.get_text();
+    istringstream buffer(seed_str);
+    int seed;
+    if (!(buffer >> seed)) {
+        seed = 0;
+    }
+    gc_->startGame(seed, playerTypeBools);
 }
 
 void ControlFrame::on_end_click() {
-    if (gc_.gameInProgress()) {
+    if (gc_->gameInProgress()) {
         for (int i = 0; i < 4; i++) {
             playerInfoBoxes[i].remove(playerScores[i]);
             playerInfoBoxes[i].add(playerTypes[i]);
@@ -87,5 +100,15 @@ void ControlFrame::on_end_click() {
     endButton.set_sensitive(false);
     
     show_all();
-    gc_.endGame();
+    gc_->endGame();
+}
+
+void ControlFrame::on_player_type_click(int id) {
+    playerTypeBools[id] = !playerTypeBools[id];
+    if (playerTypeBools[id]) {
+        playerTypes[id].set_label("Computer");
+    }
+    else {
+        playerTypes[id].set_label("Human");
+    }
 }

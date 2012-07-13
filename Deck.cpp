@@ -17,7 +17,6 @@ namespace {
 
 // Deck constructor
 Deck::Deck() : cards_left_(CARD_COUNT) {
-    cards_.reserve(CARD_COUNT);
     // add all standard playing cards to deck in order
     for (int s = 0; s < SUIT_COUNT; s++) {
         for (int r = 0; r < RANK_COUNT; r++) {
@@ -63,7 +62,6 @@ void Deck::shuffle(){
 // returns a vector of 13 cards for a player to use
 CardList Deck::dealPlayerHand() {
     CardList hand;
-    hand.reserve(HAND_SIZE);
     
     // grab next 13 cards and copy them to hand vector
     for (int i = 0; i < HAND_SIZE; i++) {

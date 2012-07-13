@@ -16,7 +16,7 @@ namespace helper {
 }
 
 Game::Game()
-	:MAX_TURNS(52), ENDGAME_SCORE(80), seed_(0)   {
+	:MAX_TURNS(52), ENDGAME_SCORE(80), seed_(0), currPlayer_(0), currTurn_(0)   {
 	for (int playerId = 0; playerId < 4; playerId++) {
 		players_.push_back(new Player(playerId, true, this));
 	}
@@ -40,7 +40,7 @@ void Game::playerRageQuit(int id) {
 	
 }
 
-Player* Game::getPlayer(int id) {
+Player* Game::getPlayer(int id) const {
 	return players_[id];
 }
 
@@ -109,6 +109,11 @@ void Game::endRound() {
 		}    
 	}
 	newRound();
+}
+
+// if user wants to end game prematurely
+void Game::endGame() {
+    table_.clear();
 }
 
 void Game::gameOver() {

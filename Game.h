@@ -21,7 +21,7 @@ public:
 	~Game();
 
 	//Accessors
-	Player* getPlayer(int);
+	Player* getPlayer(int) const;
 
 	//Mutators
 	void seed(int);

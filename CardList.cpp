@@ -1,4 +1,5 @@
 #include "CardList.h"
+#include <iostream>
 
 using namespace std;
 
@@ -13,10 +14,6 @@ CardList::~CardList()
 void CardList::add(const Card* card) {
 	cardList_.push_back(card);
 	notify();
-}
-
-void CardList::reserve(int size) {
-	cardList_.reserve(size);
 }
 
 // Removes the specified card from the list of cards
@@ -55,9 +52,9 @@ int CardList::size() const {
 }
 
 void CardList::swap(int index1, int index2) {
-	const Card *c = cardList_[index1];
-	cardList_[index1] = cardList_[index2];
-	cardList_[index2] = c;
+	const Card *c = cardList_.at(index1);
+	cardList_.at(index1) = cardList_.at(index2);
+	cardList_.at(index2) = c;
 }
 
 const Card* CardList::operator[](int index) {

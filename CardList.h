@@ -17,7 +17,6 @@ public:
 	CardList();
 	virtual ~CardList();
 	void add(const Card *);
-	void reserve(int);
 	const Card* remove(const Card&);
 	void clear ();
 	int find(const Card&) const;
