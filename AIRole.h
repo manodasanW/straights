@@ -19,6 +19,8 @@ class AIRole : public Role {
 		~AIRole();                              // destructor
 
 		void play();							// gets AI move given the table
+	private:
+		int getSpecialIndex(const CardList&, bool); // index of highest or lowest card depending on bool
 };
 
 #endif /* _AIROLE_H_ */
