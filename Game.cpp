@@ -153,13 +153,18 @@ void Game::notify() {
 
 // Called when all players are done playing their cards
 void Game::endRound() {
-	// signifies round is over
-	roundOver_ = true;
+	// signifies is game is over
 	bool over = false;
 
 	// update players' score
 	// also check to see if any player has score >= 80
 	for (unsigned int i = 0; i < players_.size(); i++) {
+		// on last player update round is set to be over
+		if(i == 3)	{
+			// signifies round is over
+			roundOver_ = true;
+		}
+
 		// informs each player round is over
 		players_[i]->endRound();
             
