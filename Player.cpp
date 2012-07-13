@@ -42,7 +42,6 @@ void Player::rageQuit() {
 void Player::newRound(const CardList &new_cards) {
     hand_ = new_cards;
 	discards_.clear();
-	notify();
 }
 
 // handle the end of round for the player

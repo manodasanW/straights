@@ -11,6 +11,7 @@ public:
     
     void startGame(int, bool*);
     void endGame();
+    void play_card(const Card &);
 private:
     Game *g_;
     bool game_in_progress_;

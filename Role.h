@@ -21,26 +21,27 @@ class Role {
 		virtual void play() = 0;									// Performs action based on whether the player is a human or AI
 		void playCard(const Card&);									// Plays the card given card, throws exception if illegal move
 		void discardCard(const Card&);								// Discards the card, throws exception will player can play
-
+    
+        // Exception classes
+        class IllegalPlayException : public std::exception {	
+            
+        public:
+            IllegalPlayException();								// constructor of exception class
+            const char* what() const throw();					// reason for exception
+        };
+        
+        class IllegalDiscardException : public std::exception {
+            
+        public:
+            IllegalDiscardException();							// constructor of exception class
+            const char* what() const throw();					// reason for exception
+        };
+    
 	protected:
 		const CardList& playerHand() const;							// Gets the hand of the player to calculate legal moves
 		const CardList& legalMoves() const;							// Gets the legal moves for the current round
 		void triggerPlayerUpdate(bool);
-
-		// Exception classes
-		class IllegalPlayException : public std::exception {	
-
-			public:
-				IllegalPlayException();								// constructor of exception class
-				const char* what() const throw();					// reason for exception
-		};
-
-		class IllegalDiscardException : public std::exception {
-
-			public:
-				IllegalDiscardException();							// constructor of exception class
-				const char* what() const throw();					// reason for exception
-		};
+    
 	private:
 		Player* player_;											// the player who is using this role
 };

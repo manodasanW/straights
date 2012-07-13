@@ -28,3 +28,8 @@ void GameController::endGame() {
     g_->endGame();
     game_in_progress_ = false;
 }
+
+// play a given card
+void GameController::play_card(const Card &c) {
+    g_->play(c);
+}

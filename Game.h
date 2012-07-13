@@ -24,15 +24,15 @@ public:
 	//Accessors
     int getCurrentPlayerId() const;
     int getScore(int) const;
-    const CardList &getPlayerHand(int) const;
+    const CardList &getCurrentPlayerHand() const;
     const CardList &getTable() const;
     
 	//Mutators
 	void seed(int);
 	void setPlayerType(int,bool);
 	void playerRageQuit(int);
-	void play(int id, const Card& card);
-	void playCard(const Card*);
+	void play(const Card& card);
+	void addToTable(const Card*);
 	void startNewGame();
 	void endGame();
 	void newRound();

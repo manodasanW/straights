@@ -53,14 +53,19 @@ int Game::getCurrentPlayerId() const {
 }
 
 // Given a card determines whether the user should be playing it or discarding it, and performs the appropriate action
-void Game::play(int id, const Card& card)
+void Game::play(const Card& card)
 {
 	// check for legal moves, if there is the player is playing otherwise discarding
-	if(players_[id]->hasLegalMoves()) {
-		players_[id]->playCard(card);
+	if(players_[currPlayer_]->hasLegalMoves()) {
+        try {
+            players_[currPlayer_]->playCard(card);
+        }
+        catch (Role::IllegalPlayException &e) {
+            // do nothing
+        }
 	}
 	else {
-		players_[id]->discardCard(card);
+		players_[currPlayer_]->discardCard(card);
 	} 
 }
 
@@ -69,9 +74,9 @@ int Game::getScore(int id) const {
     return players_[id]->score();
 }
 
-// get player hand by id
-const CardList &Game::getPlayerHand(int id) const {
-    return players_[id]->playerHand();
+// get current player hand
+const CardList &Game::getCurrentPlayerHand() const {
+    return players_[currPlayer_]->playerHand();
 }
 
 // get game table
@@ -79,7 +84,7 @@ const CardList &Game::getTable() const {
     return table_;
 }
 
-void Game::playCard(const Card* card) {
+void Game::addToTable(const Card* card) {
 	table_.add(card);	
 }
 
@@ -109,7 +114,7 @@ void Game::newRound() {
 			currPlayer_ = i;
 		}
 	}
-
+    
 	players_[currPlayer_]->notifyTurn(table_);
 }
 

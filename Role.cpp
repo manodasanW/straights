@@ -27,14 +27,15 @@ void Role::playCard(const Card& card) {
 	const CardList legalCards = legalMoves();							// gets the card which are legal to play
 
 	// Determines whether the card being played is legal to play, otherwise exception is thrown
-	int cardIndex = legalCards.find(card);				
+	int cardIndex = legalCards.find(card);
+    
 	if(cardIndex == -1)	{
 		throw IllegalPlayException();
 	}
 	
 	//Removes the card from the hand, and returns it so it can be added to the table
 	const Card* played = player_->hand_.remove(card);
-	player_->getGame()->playCard(played);
+	player_->getGame()->addToTable(played);
 	triggerPlayerUpdate(true);
 }
 

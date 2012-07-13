@@ -6,6 +6,7 @@
 #include <gtkmm/box.h>
 #include <gtkmm/image.h>
 #include <gtkmm/button.h>
+#include <sigc++/connection.h>
 
 #include <vector>
 
@@ -19,6 +20,9 @@ public:
 	virtual ~PlayFrame();
 	void notify();
 
+protected:
+    void on_card_play(const Card &);
+
 private:
     GameController *gc_;
     Game *g_;
@@ -31,6 +35,7 @@ private:
 	std::vector<Gtk::HBox*> tableRows;
     
     Gtk::Button handButtons[RANK_COUNT];
+    sigc::connection handButtonConnections[RANK_COUNT];
 	Gtk::Image* handImages[RANK_COUNT];
 	Gtk::Frame handFrame;
 	Gtk::HBox hand;
