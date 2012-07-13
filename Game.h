@@ -28,6 +28,7 @@ public:
 	int getDiscardCount(int) const;					// gets the number of discards by the given player
     const CardList &getCurrentPlayerHand() const;	// gets the hand of the current player
     const CardList &getTable() const;				// gets the table which is the cards already played
+	bool roundOver() const;							// whether a round is over or not
     
 	//Mutators
 	void seed(int);									// allows to set seed value
@@ -49,6 +50,7 @@ private:
 	int seed_;										// value used in shuffling algorithm
 	int currPlayer_;								// the player who is currently playing cards
 	int currTurn_;									// the turn number to keep track of when game is over
+	bool roundOver_;								// whether the current round is over
     std::vector<Player*> players_;					// list of the players who are in the game
     Deck game_deck_;								// Deck of cards used to play the game
 	CardList table_; 	            				// played cards

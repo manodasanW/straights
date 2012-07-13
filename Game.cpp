@@ -16,7 +16,7 @@ namespace helper {
 }
 
 Game::Game()
-	:MAX_TURNS(52), ENDGAME_SCORE(80), seed_(0), currPlayer_(0), currTurn_(0)   {
+	:MAX_TURNS(52), ENDGAME_SCORE(80), seed_(0), currPlayer_(0), currTurn_(0), roundOver_(true)   {
 	for (int playerId = 0; playerId < 4; playerId++) {
 		players_.push_back(new Player(playerId, true, this));
 	}
@@ -91,20 +91,32 @@ const CardList &Game::getTable() const {
     return table_;
 }
 
+// gets whether the round is over
+bool Game::roundOver() const {
+	return roundOver_;
+}
+
+// adds the given card to the table
 void Game::addToTable(const Card* card) {
 	table_.add(card);	
 }
 
+// shuffles the deck, and starts a new game
 void Game::startNewGame() {
-	srand48(seed_);
+	srand48(seed_);			// shuffle algorithm randomizer
+	// resets all players score
     for (unsigned int i = 0; i < players_.size(); i++) {
         players_[i]->resetScore();
     }
 	newRound();
 }
 
+// Starts a new round in the game
 void Game::newRound() {
+	// resets variables
 	currTurn_ = 0;
+	roundOver_ = false;
+
 	// clear the table as cards are returned to deck
 	table_.clear();
 
@@ -125,23 +137,28 @@ void Game::newRound() {
 	players_[currPlayer_]->notifyTurn(table_);
 }
 
+// Called to move onto next player/turn
 void Game::notify() {
+	// increments turn and checks whether round is over
 	currTurn_ += 1;
 	if(currTurn_ == MAX_TURNS) {
 		endRound();
 		return;		
 	}
 
+	// increments player, and has the player play if round is not over
 	currPlayer_ = (currPlayer_ + 1) % players_.size();
 	players_[currPlayer_]->notifyTurn(table_);
 }
 
 // Called when all players are done playing their cards
 void Game::endRound() {
-	// update players' score
-	// also check to see if any player has score >= 80
+	// signifies round is over
+	roundOver_ = true;
 	bool over = false;
 
+	// update players' score
+	// also check to see if any player has score >= 80
 	for (unsigned int i = 0; i < players_.size(); i++) {
 		// informs each player round is over
 		players_[i]->endRound();
