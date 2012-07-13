@@ -40,10 +40,10 @@ void Game::subscribeView(Observer* observer) {
 	}
 }
 
-// Given the player id, swaps the human role with ai role
-void Game::playerRageQuit(int id) {
-	players_[id]->rageQuit();
-	players_[id]->notifyTurn(table_);
+// swaps the current player's human role with ai role
+void Game::playerRageQuit() {
+	players_[currPlayer_]->rageQuit();
+	players_[currPlayer_]->notifyTurn(table_);
 	
 }
 

@@ -118,8 +118,9 @@ void ControlFrame::on_end_click() {
     endButton.set_sensitive(false);
     
     currentPlayer.set_label("Current Player: (none)");
-    show_all();
     gc_->endGame();
+    
+    show_all();
 }
 
 void ControlFrame::on_player_type_click(int id) {

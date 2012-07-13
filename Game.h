@@ -30,7 +30,7 @@ public:
 	//Mutators
 	void seed(int);
 	void setPlayerType(int,bool);
-	void playerRageQuit(int);
+	void playerRageQuit();
 	void play(const Card& card);
 	void addToTable(const Card*);
 	void startNewGame();
