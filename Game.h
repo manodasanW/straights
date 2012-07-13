@@ -29,6 +29,8 @@ public:
     const CardList &getCurrentPlayerHand() const;	// gets the hand of the current player
     const CardList &getTable() const;				// gets the table which is the cards already played
 	bool roundOver() const;							// whether a round is over or not
+	bool gameDone() const;							// whether game is over or not
+	bool winner(int) const; 						// whether given player won
 	const Card* hint() const;						// gives a card as a hint	
     
 	//Mutators
@@ -52,6 +54,7 @@ private:
 	int currPlayer_;								// the player who is currently playing cards
 	int currTurn_;									// the turn number to keep track of when game is over
 	bool roundOver_;								// whether the current round is over
+	bool gameOver_;									// whether game is over
     std::vector<Player*> players_;					// list of the players who are in the game
     Deck game_deck_;								// Deck of cards used to play the game
 	CardList table_; 	            				// played cards

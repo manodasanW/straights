@@ -52,6 +52,11 @@ int Game::getCurrentPlayerId() const {
     return currPlayer_;
 }
 
+// whether given player is a winner
+bool Game::winner(int id) const {
+	return players_[id]->won();
+}
+
 // returns a card as a hint
 const Card* Game::hint() const {
 	// checks if there are any legal plays, if there is returns one of them, otherwise discard
@@ -107,6 +112,11 @@ bool Game::roundOver() const {
 	return roundOver_;
 }
 
+// gets whether the game is over
+bool Game::gameDone() const {
+	return gameOver_;
+}
+
 // adds the given card to the table
 void Game::addToTable(const Card* card) {
 	table_.add(card);	
@@ -115,6 +125,7 @@ void Game::addToTable(const Card* card) {
 // shuffles the deck, and starts a new game
 void Game::startNewGame() {
 	srand48(seed_);			// shuffle algorithm randomizer
+	gameOver_ = false;		// resets flag
 	// resets all players score
     for (unsigned int i = 0; i < players_.size(); i++) {
         players_[i]->resetScore();
@@ -201,6 +212,7 @@ void Game::endGame() {
 }
 
 void Game::gameOver() {
+	roundOver_ = false;
 	// see who has the minimum score
 	int min_score = players_[0]->score();
 	vector<int> winners;
@@ -217,6 +229,10 @@ void Game::gameOver() {
     
     // inform them they won
     for (unsigned int i = 0; i < winners.size(); i++) {
+		// sets the game is over when the last player is being set so GUI doesnt get informed multiple times
+		if (i == winners.size() - 1)
+			gameOver_ = true;
+
         players_[winners[i]-1]->won(true);
     }
 

@@ -127,6 +127,7 @@ void Player::resetScore() {
 // won mutator
 void Player::won(bool newVal) {
 	won_ = newVal;
+	notify();
 }
 
 // won accessor
