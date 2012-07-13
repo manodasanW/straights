@@ -49,6 +49,10 @@ private:
     Gtk::Label dialogLabel;
     Gtk::Dialog invalidMoveDialog;
     
+    // dialog for round end
+    Gtk::Label endRoundLabel;
+    Gtk::Dialog endRoundDialog;
+    
     // dialog for winners
     Gtk::Label winnersLabel;
     Gtk::Dialog winnersDialog;

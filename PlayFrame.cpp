@@ -50,11 +50,17 @@ PlayFrame::PlayFrame(GameController *gc, Game *g)
 	add(playArea);
     
     // sets up dialog boxes
-    Gtk::VBox *contentArea = invalidMoveDialog.get_vbox();
-    contentArea->add(dialogLabel);
+    Gtk::VBox *m_contentArea = invalidMoveDialog.get_vbox();
+    m_contentArea->add(dialogLabel);
+    Gtk::VBox *e_contentArea = endRoundDialog.get_vbox();
+    e_contentArea->add(endRoundLabel);
+    Gtk::VBox *w_contentArea = winnersDialog.get_vbox();
+    w_contentArea->add(winnersLabel);
+    
 	// adds ok button
     invalidMoveDialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
     winnersDialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
+    endRoundDialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
     
 	// requests facade to tell player that it needs to be notified of updates
     g_->subscribeView(this);
@@ -92,6 +98,7 @@ void PlayFrame::notify()
     for (int i = c.size(); i < 13; i++) {
         handImages[i] = Gtk::manage(new Gtk::Image(deckImages.getNullCardImage()));
         handButtons[i].set_image(*handImages[i]);
+        handButtons[i].drag_unhighlight();
 		// makes them unclickable
         handButtons[i].set_sensitive(false);
 		// disconnects all listeners
@@ -118,6 +125,22 @@ void PlayFrame::notify()
     
     show_all();
     
+    // if end round, print scores and # of discards
+    if (g_->roundOver()) {
+        string msg = "Current round ended.\n";
+        for (int i = 0; i < 4; i++) {
+            msg += "Player " + helper::num2str(i+1) + " info:\n";
+            msg += "- Score: " + helper::num2str(g_->getScore(i)) + "\n";
+            msg += "- # Discards: " + helper::num2str(g_->getDiscardCount(i)) + "\n";
+        }
+        endRoundLabel.set_label(msg.c_str());
+        endRoundDialog.show_all_children();
+        int result = endRoundDialog.run();
+        if (result == Gtk::RESPONSE_OK) {
+            endRoundDialog.hide();
+        }
+    }
+    
     // if game over, print winners
     if (g_->gameDone()) {
         string msg;
@@ -127,8 +150,6 @@ void PlayFrame::notify()
             }
         }
         winnersLabel.set_label(msg.c_str());
-        Gtk::VBox *contentArea = winnersDialog.get_vbox();
-        contentArea->add(winnersLabel);
         winnersDialog.show_all_children();
         int result = winnersDialog.run();
         if (result == Gtk::RESPONSE_OK) {
