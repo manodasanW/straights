@@ -29,6 +29,7 @@ public:
     const CardList &getCurrentPlayerHand() const;	// gets the hand of the current player
     const CardList &getTable() const;				// gets the table which is the cards already played
 	bool roundOver() const;							// whether a round is over or not
+	const Card* hint() const;						// gives a card as a hint	
     
 	//Mutators
 	void seed(int);									// allows to set seed value

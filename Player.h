@@ -35,15 +35,16 @@ class Player : public Subject {
         const CardList &playerHand() const;     // player hand get accessor
 		void updateLegalMoves(const CardList&);	// updates the player's legal moves
 		bool hasLegalMoves() const;				// whether player has legal moves
+		const CardList& legalMoves() const;		// gets the legal moves
 
-		void won(bool);
-		bool won() const;
+		void won(bool);							// sets the current player won
+		bool won() const;						// accessor to check if current player won
     
-        void resetScore();
+        void resetScore();						// resets the score stored in the player class
     
-		void notifyTurn(const CardList&);
-		void playCard(const Card& card);
-		void discardCard(const Card& card);
+		void notifyTurn(const CardList&);		// notifies player it is thier turn
+		void playCard(const Card& card);		// plays the given card
+		void discardCard(const Card& card);		// discards the given card
     
 		friend class Role;
 

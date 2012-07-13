@@ -108,6 +108,11 @@ void Player::updateLegalMoves(const CardList& table) {
 	legalMoves_ = GameLogic::legalMoves(table, hand_);		// calls helper function to obtain legal cards
 }
 
+// accessor to the player's legal moves
+const CardList& Player::legalMoves() const {
+	return legalMoves_;
+}
+
 // checks if there are any cards to play
 bool Player::hasLegalMoves() const {
 	return legalMoves_.size() != 0;

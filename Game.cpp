@@ -52,6 +52,17 @@ int Game::getCurrentPlayerId() const {
     return currPlayer_;
 }
 
+// returns a card as a hint
+const Card* Game::hint() const {
+	// checks if there are any legal plays, if there is returns one of them, otherwise discard
+	if(players_[currPlayer_]->hasLegalMoves()) {
+		return players_[currPlayer_]->legalMoves()[0];
+	}
+	else {
+		return players_[currPlayer_]->playerHand()[0];
+	}
+}
+
 // Given a card determines whether the user should be playing it or discarding it, and performs the appropriate action
 bool Game::play(const Card& card)
 {
