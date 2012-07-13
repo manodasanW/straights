@@ -74,6 +74,11 @@ int Game::getScore(int id) const {
     return players_[id]->score();
 }
 
+// returns the number of discards for the given player
+int Game::getDiscardCount(int id) const {
+	return players_[id]->discardCount();
+}
+
 // get current player hand
 const CardList &Game::getCurrentPlayerHand() const {
     return players_[currPlayer_]->playerHand();

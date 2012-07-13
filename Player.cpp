@@ -93,6 +93,11 @@ int Player::score() const {
     return score_;
 }
 
+// returns the number of discards - accessor
+int Player::discardCount() const {
+	return discards_.size();
+}
+
 // hand get accessor
 const CardList &Player::playerHand() const {
     return hand_;

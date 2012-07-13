@@ -31,6 +31,7 @@ class Player : public Subject {
 
 		int id() const;                         // id get accessor
 		int score() const;                      // score get accessor
+		int discardCount() const;				// gets the number of discards
         const CardList &playerHand() const;     // player hand get accessor
 		void updateLegalMoves(const CardList&);	// updates the player's legal moves
 		bool hasLegalMoves() const;				// whether player has legal moves
