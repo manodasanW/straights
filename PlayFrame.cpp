@@ -57,6 +57,10 @@ PlayFrame::PlayFrame(GameController *gc, Game *g)
     Gtk::VBox *w_contentArea = winnersDialog.get_vbox();
     w_contentArea->add(winnersLabel);
     
+    invalidMoveDialog.set_decorated(false);
+    endRoundDialog.set_decorated(false);
+    winnersDialog.set_decorated(false);
+    
 	// adds ok button
     invalidMoveDialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
     winnersDialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
