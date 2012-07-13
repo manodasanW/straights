@@ -32,6 +32,8 @@ class Player : public Subject {
 		int id() const;                         // id get accessor
 		int score() const;                      // score get accessor
         const CardList &playerHand() const;     // player hand get accessor
+		void updateLegalMoves(const CardList&);	// updates the player's legal moves
+		bool hasLegalMoves() const;				// whether player has legal moves
 
 		void won(bool);
 		bool won() const;
@@ -50,6 +52,7 @@ class Player : public Subject {
 		Role *role_;                            // role; human or AI
 		CardList hand_;                         // player hand
 		CardList discards_;                     // player discards
+		CardList legalMoves_;					// legal moves able to be done by player
 		int id_;                                // player id (1-4)
 		int score_;                             // player score
 		bool won_;								// whether player won game

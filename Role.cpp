@@ -60,13 +60,7 @@ const CardList& Role::playerHand() const {
 
 // Gets the card which are legal to play
 const CardList& Role::legalMoves() const {
-	return legalMoves_;
-}
-
-// Updates the cards which are legal to play every round, using the table and the hand to determine
-void Role::updateLegalMoves(const CardList& table) {
-	const CardList hand = playerHand();
-	legalMoves_ = GameLogic::legalMoves(table, hand);		// calls helper function to obtain legal cards
+	return player_->legalMoves_;
 }
 
 void Role::triggerPlayerUpdate(bool notifyGame) {

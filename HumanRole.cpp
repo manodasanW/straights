@@ -14,7 +14,7 @@ HumanRole::~HumanRole()
 }
 
 // does nothing as GUI takes care of playing
-void HumanRole::play(const CardList& table)
+void HumanRole::play()
 {
 	triggerPlayerUpdate(false);
 }

@@ -40,6 +40,7 @@ void Game::subscribeView(Observer* observer) {
 	}
 }
 
+// Given the player id, swaps the human role with ai role
 void Game::playerRageQuit(int id) {
 	players_[id]->rageQuit();
 	players_[id]->notifyTurn(table_);
@@ -49,6 +50,18 @@ void Game::playerRageQuit(int id) {
 // player id get accessor
 int Game::getCurrentPlayerId() const {
     return currPlayer_;
+}
+
+// Given a card determines whether the user should be playing it or discarding it, and performs the appropriate action
+void Game::play(int id, const Card& card)
+{
+	// check for legal moves, if there is the player is playing otherwise discarding
+	if(players_[id]->hasLegalMoves()) {
+		players_[id]->playCard(card);
+	}
+	else {
+		players_[id]->discardCard(card);
+	} 
 }
 
 // get score by player id
@@ -64,14 +77,6 @@ const CardList &Game::getPlayerHand(int id) const {
 // get game table
 const CardList &Game::getTable() const {
     return table_;
-}
-
-void Game::playCard(int id, const Card& card) {
-	players_[id]->playCard(card);
-}
-
-void Game::discardCard(int id, const Card& card) {
-	players_[id]->discardCard(card);
 }
 
 void Game::playCard(const Card* card) {

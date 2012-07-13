@@ -18,7 +18,7 @@ class AIRole : public Role {
 		AIRole(Player*);                        // constructor
 		~AIRole();                              // destructor
 
-		void play(const CardList&);				// gets AI move given the table
+		void play();							// gets AI move given the table
 };
 
 #endif /* _AIROLE_H_ */

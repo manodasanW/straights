@@ -18,7 +18,7 @@ class HumanRole : public Role {
 		HumanRole(Player*);                         // constructor
 		~HumanRole();                               // destructor
 
-		void play(const CardList&);     		   // gets human move given the table
+		void play();								// gets human move given the table
 };
 
 #endif /* _HUMANROLE_H_ */

@@ -18,10 +18,7 @@ AIRole::~AIRole()
 **/
 
 // Decides what move to make, and performs the move
-// table - set of cards which have been played
-void AIRole::play(const CardList& table) {
-	// updates the legal moves as this is a new round
-	Role::updateLegalMoves(table);
+void AIRole::play() {
     // get info about hand and legal moves available
 	const CardList legalCards = legalMoves();
 	const CardList hand = playerHand();

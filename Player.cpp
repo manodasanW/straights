@@ -65,7 +65,8 @@ void Player::updateScore() {
 }
 
 void Player::notifyTurn(const CardList& table) {
-	role_->play(table);
+	updateLegalMoves(table);
+	role_->play();
 }
 
 void Player::playCard(const Card& card)
@@ -91,6 +92,16 @@ int Player::score() const {
 // hand get accessor
 const CardList &Player::playerHand() const {
     return hand_;
+}
+
+// updates the cards which are legally playable
+void Player::updateLegalMoves(const CardList& table) {
+	legalMoves_ = GameLogic::legalMoves(table, hand_);		// calls helper function to obtain legal cards
+}
+
+// checks if there are any cards to play
+bool Player::hasLegalMoves() const {
+	return legalMoves_.size() != 0;
 }
 
 // score reset

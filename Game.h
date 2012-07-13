@@ -31,8 +31,7 @@ public:
 	void seed(int);
 	void setPlayerType(int,bool);
 	void playerRageQuit(int);
-	void playCard(int id, const Card& card);
-	void discardCard(int id, const Card& card);
+	void play(int id, const Card& card);
 	void playCard(const Card*);
 	void startNewGame();
 	void endGame();
