@@ -16,8 +16,8 @@ public:
 
 private:
 	Gtk::HBox gameWindow_;							// game consists of one horizontal window which contains everything else
-	PlayFrame playFrame_;							// area where cards are located
 	ControlFrame controlFrame_;						// area where controls are located
+	PlayFrame playFrame_;							// area where cards are located
 
 };
 

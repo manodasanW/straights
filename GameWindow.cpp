@@ -2,7 +2,7 @@
 
 // constructor - initalizes all gui elements
 GameWindow::GameWindow(GameController *gc, Game *g) : gameWindow_(false, 10),
-    playFrame_(gc, g), controlFrame_(gc, g)
+    controlFrame_(gc, g), playFrame_(gc, g)
 {
 	// sets title
 	set_title("Straights");
