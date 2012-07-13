@@ -64,6 +64,8 @@ ControlFrame::ControlFrame(GameController *gc, Game *g)
     // register buttons with clicking events
     startButton.signal_clicked().connect( sigc::mem_fun(*this, &ControlFrame::on_start_click) );
     endButton.signal_clicked().connect( sigc::mem_fun(*this, &ControlFrame::on_end_click) );
+    rageButton.signal_clicked().connect( sigc::mem_fun(*this, &ControlFrame::on_ragequit_click) );
+    
     endButton.set_sensitive(false);
     
     // finally, add each major part of the control frame
@@ -130,5 +132,13 @@ void ControlFrame::on_player_type_click(int id) {
     }
     else {
         playerTypes[id].set_label("Human");
+    }
+}
+
+void ControlFrame::on_ragequit_click() {
+    if (gc_->gameInProgress()) {
+        int id = g_->getCurrentPlayerId();
+        on_player_type_click(id);
+        gc_->rageQuit();
     }
 }

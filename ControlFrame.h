@@ -19,6 +19,7 @@ protected:
     void on_end_click();
     
     void on_player_type_click(int);
+    void on_ragequit_click();
     
 private:
     

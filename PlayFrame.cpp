@@ -84,5 +84,5 @@ PlayFrame::~PlayFrame()
 }
 
 void PlayFrame::on_card_play(const Card &c) {
-    gc_->play_card(c);
+    gc_->playCard(c);
 }
