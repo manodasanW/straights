@@ -49,7 +49,7 @@ ControlFrame::ControlFrame(GameController *gc, Game *g)
     // stats control frame components
     for (int i = 0; i < 4; i++) {
         playerInfoLabels[i].set_label(string("Player " + helper::num2str(i+1)).c_str());
-        playerScores[i].set_label("Score: 0");
+        playerScores[i].set_label("Score: 0\nDiscards: 0");
         playerTypes[i].set_label("Human");
         playerTypeBools[i] = false;
         playerTypes[i].signal_clicked().connect( sigc::bind (
@@ -89,7 +89,8 @@ void ControlFrame::notify()
     
     // update score displays
     for (int i = 0; i < 4; i++) {
-        playerScores[i].set_label(string("Score: " + helper::num2str(g_->getScore(i))).c_str());
+        playerScores[i].set_label(string("Score: " + helper::num2str(g_->getScore(i))
+            + "\nDiscards: " + helper::num2str(g_->getDiscardCount(i))).c_str());
     }
 }
 

@@ -1,8 +1,9 @@
 #include "PlayFrame.h"
 
 PlayFrame::PlayFrame(GameController *gc, Game *g)
-	: Observer(), gc_(gc), g_(g), playArea(false, 10), table(true, 10), hand(true, 10)
-{ 
+	: Observer(), gc_(gc), g_(g), playArea(false, 10), table(true, 10), hand(true, 10),
+    dialogLabel("That is not a valid move.")
+{
 
 	tableFrame.set_label("Cards Played: ");
 	handFrame.set_label("Your hand: ");
@@ -39,6 +40,10 @@ PlayFrame::PlayFrame(GameController *gc, Game *g)
 
 	add(playArea);
     
+    // dialog box
+    Gtk::VBox *contentArea = invalidMoveDialog.get_vbox();
+    contentArea->add(dialogLabel);
+    invalidMoveDialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
     g_->subscribeView(this);
 }
 
@@ -84,5 +89,12 @@ PlayFrame::~PlayFrame()
 }
 
 void PlayFrame::on_card_play(const Card &c) {
-    gc_->playCard(c);
+    bool validMoveMade = gc_->playCard(c);
+    if (!validMoveMade) {
+        invalidMoveDialog.show_all_children();
+        int result = invalidMoveDialog.run();
+        if (result == Gtk::RESPONSE_OK) {
+            invalidMoveDialog.hide();
+        }
+    }
 }

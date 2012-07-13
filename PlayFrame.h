@@ -5,7 +5,10 @@
 
 #include <gtkmm/box.h>
 #include <gtkmm/image.h>
+#include <gtkmm/label.h>
 #include <gtkmm/button.h>
+#include <gtkmm/dialog.h>
+#include <gtkmm/stock.h>
 #include <sigc++/connection.h>
 
 #include <vector>
@@ -39,6 +42,9 @@ private:
 	Gtk::Image* handImages[RANK_COUNT];
 	Gtk::Frame handFrame;
 	Gtk::HBox hand;
+    
+    Gtk::Label dialogLabel;
+    Gtk::Dialog invalidMoveDialog;
 
 	DeckGUI deckImages;
 };

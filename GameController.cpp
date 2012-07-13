@@ -30,8 +30,8 @@ void GameController::endGame() {
 }
 
 // play a given card
-void GameController::playCard(const Card &c) {
-    g_->play(c);
+bool GameController::playCard(const Card &c) {
+    return g_->play(c);
 }
 
 // ragequit

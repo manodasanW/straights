@@ -11,7 +11,7 @@ public:
     
     void startGame(int, bool*);
     void endGame();
-    void playCard(const Card &);
+    bool playCard(const Card &);
     void rageQuit();
 private:
     Game *g_;
