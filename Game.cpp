@@ -15,26 +15,34 @@ namespace helper {
     }
 }
 
+// constructor - initalizes everything
 Game::Game()
 	:MAX_TURNS(52), ENDGAME_SCORE(80), seed_(0), currPlayer_(0), currTurn_(0), roundOver_(true)   {
+	// sets up 4 players
 	for (int playerId = 0; playerId < 4; playerId++) {
 		players_.push_back(new Player(playerId, true, this));
 	}
 }
 
+// destructor
 Game::~Game() {
+	// deallocates all players
 	helper::cleanVectorMem(players_);
 }
 
+// sets the seed value
 void Game::seed(int seed) {
 	seed_ = seed;	
 }
 
+// sets what of the player is the given player
 void Game::setPlayerType(int id, bool isHuman) {
 	players_[id]->setRole(isHuman);
 }
 
+// adds the given view to be an observer for the player model
 void Game::subscribeView(Observer* observer) {
+	// loops through all players
 	for (unsigned int id = 0; id < players_.size(); id++) {
 		players_[id]->subscribe(observer);
 	}
@@ -73,6 +81,7 @@ bool Game::play(const Card& card)
 {
 	// check for legal moves, if there is the player is playing otherwise discarding
 	if(players_[currPlayer_]->hasLegalMoves()) {
+		// catches any exceptions and passes it to GUI to say its illegal move
         try {
             players_[currPlayer_]->playCard(card);
         }
@@ -84,6 +93,7 @@ bool Game::play(const Card& card)
 		players_[currPlayer_]->discardCard(card);
 	} 
 
+	// valid move
 	return true;
 }
 
@@ -156,6 +166,7 @@ void Game::newRound() {
 		}
 	}
     
+	// notifies player with 7 of spades to start
 	players_[currPlayer_]->notifyTurn(table_);
 }
 
@@ -216,11 +227,14 @@ void Game::endGame() {
     game_deck_.reset();
 }
 
+// Called when game is over - determines winner
 void Game::gameOver() {
 	roundOver_ = false;
 	// see who has the minimum score
 	int min_score = players_[0]->score();
 	vector<int> winners;
+
+	// loop through all players and determine the lowest score
 	for (unsigned int i = 0; i < players_.size(); i++) {
 		if (players_[i]->score() < min_score) {
 			winners.clear();

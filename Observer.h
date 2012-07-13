@@ -9,13 +9,13 @@
 
 #include <gtkmm/frame.h>
 
+// class used to store all gui elements which require update to changes in the model
 class Observer : public Gtk::Frame {
 
 public:
-    virtual ~Observer() {}
-	virtual void notify() = 0;
+    virtual ~Observer() {}			// destructor
+	virtual void notify() = 0;		// function to call when there is update
 
 };
 
-#endif
-
+#endif /* _OBSERVER_H_ */

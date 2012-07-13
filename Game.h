@@ -1,6 +1,7 @@
 /*
  Game.h
- 
+
+ FACADE class
  Declaration of Game class.
  */
 
@@ -63,4 +64,5 @@ private:
 	void gameOver();								// Calculates winner
 };
 
-#endif
+#endif /* _GAME_H_ */
+

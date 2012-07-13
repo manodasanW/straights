@@ -8,16 +8,17 @@
 #include "PlayFrame.h"
 #include "ControlFrame.h"
 
+// Main window
 class GameWindow : public Gtk::Window {
 
 public:
-	GameWindow(GameController *, Game *);
+	GameWindow(GameController *, Game *);			// constructor - requires controller and facade access to pass onto its children
 
 private:
-	Gtk::HBox gameWindow_;
-	PlayFrame playFrame_;
-	ControlFrame controlFrame_;
+	Gtk::HBox gameWindow_;							// game consists of one horizontal window which contains everything else
+	PlayFrame playFrame_;							// area where cards are located
+	ControlFrame controlFrame_;						// area where controls are located
 
 };
 
-#endif
+#endif /* GAME_WINDOW */

@@ -12,9 +12,9 @@ class Card{
 	friend std::istream &operator>>(std::istream &, Card &);
 
 public:
-	Card(Suit, Rank);
-	Suit getSuit() const;
-	Rank getRank() const;
+	Card(Suit, Rank);			// constructor
+	Suit getSuit() const;		// suit - accessor
+	Rank getRank() const;		// rank - accessor
 	
 private:
 	Suit suit_;

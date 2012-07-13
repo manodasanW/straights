@@ -1,7 +1,11 @@
 #ifndef CONTROL_FRAME
 #define CONTROL_FRAME
 
-#include <gtkmm.h>
+#include <gtkmm/box.h>
+#include <gtkmm/button.h>
+#include <gtkmm/label.h>
+#include <gtkmm/entry.h>
+#include <gtkmm/frame.h>
 
 #include "GameController.h"
 #include "Game.h"
@@ -10,23 +14,25 @@
 class ControlFrame : public Observer {
 
 public:
-	ControlFrame(GameController *, Game *);
-    virtual ~ControlFrame();
-	void notify();
+	ControlFrame(GameController *, Game *);			// constructor
+    virtual ~ControlFrame();						// destructor
+	void notify();									// updates view
     
 protected:
-    void on_start_click();
-    void on_end_click();
+    void on_start_click();							// click button clicked
+    void on_end_click();							// end button clicked
     
-    void on_player_type_click(int);
-    void on_ragequit_click();
-    void on_hint_click();
+    void on_player_type_click(int);					// updates on button for Human/AI click
+    void on_ragequit_click();						// rage quit button cliked
+    void on_hint_click();							// hint button clicked
     
 private:
     
-    GameController *gc_;
-    Game *g_;
+    GameController *gc_;							// controller - handles input events
+    Game *g_;										// facade - used to get certain information from model
+    bool playerTypeBools[4];						// stores whether player is a AI or human based on button
     
+	// GUI elements
     Gtk::VBox controlArea;
     
     Gtk::Frame mainControlFrame;
@@ -50,8 +56,7 @@ private:
     Gtk::HBox playerInfoBoxes[4];
     Gtk::Label playerInfoLabels[4];
     Gtk::Label playerScores[4];
-    bool playerTypeBools[4];
     Gtk::Button playerTypes[4];
 };
 
-#endif
+#endif /* CONTROL_FRAME */

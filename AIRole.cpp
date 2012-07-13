@@ -38,7 +38,7 @@ void AIRole::play() {
 
 		// discards the best card to discard
 		Role::discardCard(*hand[cardIndex]);
-	}
+	} // if
 }
 
 // gets the highest or lowest card index depending on bool arg, and puts 7s as the last case 
@@ -52,13 +52,13 @@ int AIRole::getSpecialIndex(const CardList& list, bool highest) {
 					(list[a]->getRank() < list[cardIndex]->getRank() && !highest)) {
 			nextCardIndex = cardIndex;
 			cardIndex = a;
-		}
-	}
+		} // if
+	} // for
 
 	// checks if it is a 7, try to choose next best
 	if(list[cardIndex]->getRank() == 7 && nextCardIndex != -1) {
 		cardIndex = nextCardIndex;
-	}
+	} // if
 
 	return cardIndex;
 }

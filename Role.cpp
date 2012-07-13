@@ -64,6 +64,7 @@ const CardList& Role::legalMoves() const {
 	return player_->legalMoves_;
 }
 
+// makes player notify all the elements subscribed to it
 void Role::triggerPlayerUpdate(bool notifyGame) {
 	player_->notify(notifyGame);
 }

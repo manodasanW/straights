@@ -13,8 +13,9 @@ HumanRole::~HumanRole()
 {
 }
 
-// does nothing as GUI takes care of playing
+// passes control to the GUI
 void HumanRole::play()
 {
+	// notifies gui only to update
 	triggerPlayerUpdate(false);
 }

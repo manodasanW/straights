@@ -3,9 +3,11 @@
 
 using namespace std;
 
+// constructor
 CardList::CardList() {
 }
 
+// destructor
 CardList::~CardList()
 {}
 
@@ -43,20 +45,25 @@ int CardList::find(const Card& card) const {
 	return -1;
 }
 
+// size of list
 int CardList::size() const {
 	return cardList_.size();
 }
 
+// swaps card at index1 with card at index2
 void CardList::swap(int index1, int index2) {
+	// gets both cards and swap them
 	const Card *c = cardList_.at(index1);
 	cardList_.at(index1) = cardList_.at(index2);
 	cardList_.at(index2) = c;
 }
 
+// access operator
 const Card* CardList::operator[](int index) {
 	return cardList_[index]; 
 }
 
+// access operator
 const Card* CardList::operator[](int index) const {
 	return cardList_[index]; 
 }

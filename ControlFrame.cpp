@@ -5,13 +5,16 @@
 
 using namespace std;
 
+// helper name space
 namespace helper {
+	// converts number to string
     string num2str(int n) {
         stringstream ss;
         ss << n;
         return ss.str();
     }
     
+	// converts string to number
     int str2num(string s) {
         stringstream ss(s);
         int n;
@@ -19,6 +22,7 @@ namespace helper {
     }
 }
 
+// constructor - sets up all the elements on the frame
 ControlFrame::ControlFrame(GameController *gc, Game *g)
     : Observer(), gc_(gc), g_(g), controlArea(false, 10), mainControlFrame("Game Controls"), mainControl(true, 10),
     mainButtons(true, 10), startButton("Start Game"), endButton("End Game"), seedEntryControl(false, 10),
@@ -79,9 +83,11 @@ ControlFrame::ControlFrame(GameController *gc, Game *g)
     g_->subscribeView(this);
 }
 
+// destructor
 ControlFrame::~ControlFrame() {
 }
 
+// called to update the view
 void ControlFrame::notify()
 {
     // update display of whose turn it is
@@ -95,41 +101,57 @@ void ControlFrame::notify()
     }
 }
 
+// called when start is clicked
 void ControlFrame::on_start_click() {
+	// displays the scores, and removes the human/ai selection
     if (!gc_->gameInProgress()) {
         for (int i = 0; i < 4; i++) {
             playerInfoBoxes[i].remove(playerTypes[i]);
             playerInfoBoxes[i].add(playerScores[i]);
         }
     }
+	
+	// enables end button, disables start 
     startButton.set_sensitive(false);
     endButton.set_sensitive(true);
     
+	// shows all elements on screen
     show_all();
     
+	// sets the seed, and requests to start the game
     string seed_str = seedEntry.get_text();
     gc_->startGame(helper::str2num(seed_str), playerTypeBools);
 }
 
+// called when end game is clicked
 void ControlFrame::on_end_click() {
+	// disables hint
     gc_->setHintRequestedFlag(false);
+
+	// displays human/ai selection
     if (gc_->gameInProgress()) {
         for (int i = 0; i < 4; i++) {
             playerInfoBoxes[i].remove(playerScores[i]);
             playerInfoBoxes[i].add(playerTypes[i]);
         }
     }
+
+	// enables start game button
     startButton.set_sensitive(true);
     endButton.set_sensitive(false);
     
+	// removes current player counter, and tells controller to end the game
     currentPlayer.set_label("Current Player: (none)");
     gc_->endGame();
     
     show_all();
 }
 
+// Changes given player to the opposite of the current (AI or human), changes to AI when human hits ragequit
 void ControlFrame::on_player_type_click(int id) {
     playerTypeBools[id] = !playerTypeBools[id];
+
+	// sets appropriate label on human/ai button depending on what player changed to
     if (playerTypeBools[id]) {
         playerTypes[id].set_label("Computer");
     }
@@ -138,8 +160,11 @@ void ControlFrame::on_player_type_click(int id) {
     }
 }
 
+// performs rage quit
 void ControlFrame::on_ragequit_click() {
     gc_->setHintRequestedFlag(false);
+
+	// requests controller to ask model to rage quit
     if (gc_->gameInProgress() && !g_->gameDone()) {
         int id = g_->getCurrentPlayerId();
         on_player_type_click(id);
@@ -147,6 +172,7 @@ void ControlFrame::on_ragequit_click() {
     }
 }
 
+/// requests controller to ask model for a hint
 void ControlFrame::on_hint_click() {
     if (gc_->gameInProgress() && !g_->gameDone()) {
         gc_->setHintRequestedFlag(true);

@@ -21,9 +21,12 @@ Player::~Player() {
     delete role_;
 }
 
+// sets whether the current player is a human or ai
 void Player::setRole(bool is_human) {
+	// destructs the previous role if any
 	delete role_;
 	
+	// constructs new role based on bool
     if (is_human) {
         role_ = new HumanRole(this);
     }
@@ -41,12 +44,17 @@ void Player::rageQuit() {
 // start a new round by giving the player a new set of cards
 void Player::newRound(const CardList &new_cards) {
     hand_ = new_cards;
+
+	// removes all the cards which were discarded
 	discards_.clear();
 }
 
 // handle the end of round for the player
 void Player::endRound() {
+	// updates players score
     updateScore();
+	
+	// notifies gui round is over
 	notify();
 }
 
@@ -132,6 +140,8 @@ void Player::resetScore() {
 // won mutator
 void Player::won(bool newVal) {
 	won_ = newVal;
+
+	// notifies of change in winner status
 	notify();
 }
 

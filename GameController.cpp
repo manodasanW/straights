@@ -25,10 +25,13 @@ void GameController::setHintRequestedFlag(bool flag) {
 
 // starts a new game
 void GameController::startGame(int gseed, bool *playerTypes) {
+	// sets seed
     g_->seed(gseed);
+	// sets the type for all players
     for (int i = 0; i < 4; i++) {
         g_->setPlayerType(i, !playerTypes[i]);
     }
+	// starts new game
     g_->startNewGame();
     game_in_progress_ = true;
 }

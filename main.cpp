@@ -3,8 +3,10 @@
 #include "GameWindow.h"
 #include "Game.h"
 
+// main function
 int main(int argc, char* argv[])
 {
+	// sets up GTK, and displays the main window
 	Gtk::Main kit(argc, argv);
     Game g;
     GameController gc(&g);

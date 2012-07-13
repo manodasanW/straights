@@ -10,6 +10,7 @@
 
 using namespace std;
 
+// stores required constants
 namespace {
     const int CARD_COUNT = 52;
     const int HAND_SIZE = 13;
@@ -56,13 +57,16 @@ void Deck::shuffle(){
 // resets deck to sorted state
 void Deck::reset() {
     // easiest to wipe out deck and recreate it
-    
+   
+	// unallocates all cards 
     for (int i = 0; i < cards_.size(); i++) {
         delete cards_[i];
     }
     
+	// empty list of cards
     cards_.clear();
     
+	// reinitalizes all cards
     for (int s = 0; s < SUIT_COUNT; s++) {
         for (int r = 0; r < RANK_COUNT; r++) {
             Card *c = new Card((Suit)s, (Rank)r);

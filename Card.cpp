@@ -3,23 +3,28 @@
 #include <cassert>
 using namespace std;
 
+// constructor
 Card::Card(Suit s, Rank r){
 	suit_ = s;
 	rank_ = r;
 }
 
+// gets suit
 Suit Card::getSuit() const{
 	return suit_;
 }
 
+// gets rank
 Rank Card::getRank() const{
 	return rank_;
 }
 
+//equalitiy
 bool operator==(const Card &a, const Card &b){
 	return a.getSuit() == b.getSuit() && a.getRank() == b.getRank();
 }
 
+//streaming operators
 ostream &operator<<(ostream &out, const Card &c){
 	string suits[SUIT_COUNT] = {"C", "D", "H", "S"};
 	string ranks[RANK_COUNT] = {"A", "2", "3", "4", "5", "6",

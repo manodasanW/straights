@@ -5,20 +5,21 @@
 
 class GameController {
 public:
-    GameController(Game *);
-    ~GameController();
-    bool gameInProgress() const;
-    bool hintRequested() const;
-    void setHintRequestedFlag(bool);
+    GameController(Game *);				// constructor
+    ~GameController();					// destructor
+    bool gameInProgress() const;		// checks whether game is in progress
+    bool hintRequested() const;			// checks whether a hint was requested
+    void setHintRequestedFlag(bool);	// sets that a hint was requested
     
-    void startGame(int, bool*);
-    void endGame();
-    bool playCard(const Card &);
-    void rageQuit();
+    void startGame(int, bool*);			// called when start button clicked
+    void endGame();						// called when end button clicked
+    bool playCard(const Card &);		// called when card is played
+    void rageQuit();					// called when rage quit is clicked
 private:
-    Game *g_;
-    bool game_in_progress_;
-    bool hint_requested_;
+    Game *g_;							// Stores access to facade to call on gui events
+    bool game_in_progress_;				// whether game is occuring
+    bool hint_requested_;				// whether the user requested a hint
 };
 
-#endif
+#endif /* _GAMECONTROLLER_H_ */
+

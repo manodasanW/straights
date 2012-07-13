@@ -18,7 +18,7 @@ class HumanRole : public Role {
 		HumanRole(Player*);                         // constructor
 		~HumanRole();                               // destructor
 
-		void play();								// gets human move given the table
+		void play();								// Used to pass control over to the GUI for human to play
 };
 
 #endif /* _HUMANROLE_H_ */
