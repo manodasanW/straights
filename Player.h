@@ -36,6 +36,7 @@ class Player : public Subject {
 		void updateLegalMoves(const CardList&);	// updates the player's legal moves
 		bool hasLegalMoves() const;				// whether player has legal moves
 		const CardList& legalMoves() const;		// gets the legal moves
+        void makeHintRequest();                 // makes a hint request
 
 		void won(bool);							// sets the current player won
 		bool won() const;						// accessor to check if current player won

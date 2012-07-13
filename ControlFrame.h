@@ -20,6 +20,7 @@ protected:
     
     void on_player_type_click(int);
     void on_ragequit_click();
+    void on_hint_click();
     
 private:
     

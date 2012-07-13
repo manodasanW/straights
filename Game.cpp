@@ -159,6 +159,11 @@ void Game::newRound() {
 	players_[currPlayer_]->notifyTurn(table_);
 }
 
+// makes a hint request to the current player
+void Game::makeHintRequest() {
+    players_[currPlayer_]->makeHintRequest();
+}
+
 // Called to move onto next player/turn
 void Game::notify() {
 	// increments turn and checks whether round is over

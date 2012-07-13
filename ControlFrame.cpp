@@ -65,6 +65,7 @@ ControlFrame::ControlFrame(GameController *gc, Game *g)
     startButton.signal_clicked().connect( sigc::mem_fun(*this, &ControlFrame::on_start_click) );
     endButton.signal_clicked().connect( sigc::mem_fun(*this, &ControlFrame::on_end_click) );
     rageButton.signal_clicked().connect( sigc::mem_fun(*this, &ControlFrame::on_ragequit_click) );
+    hintButton.signal_clicked().connect( sigc::mem_fun(*this, &ControlFrame::on_hint_click) );
     
     endButton.set_sensitive(false);
     
@@ -111,6 +112,7 @@ void ControlFrame::on_start_click() {
 }
 
 void ControlFrame::on_end_click() {
+    gc_->setHintRequestedFlag(false);
     if (gc_->gameInProgress()) {
         for (int i = 0; i < 4; i++) {
             playerInfoBoxes[i].remove(playerScores[i]);
@@ -137,9 +139,17 @@ void ControlFrame::on_player_type_click(int id) {
 }
 
 void ControlFrame::on_ragequit_click() {
-    if (gc_->gameInProgress()) {
+    gc_->setHintRequestedFlag(false);
+    if (gc_->gameInProgress() && !g_->gameDone()) {
         int id = g_->getCurrentPlayerId();
         on_player_type_click(id);
         gc_->rageQuit();
+    }
+}
+
+void ControlFrame::on_hint_click() {
+    if (gc_->gameInProgress() && !g_->gameDone()) {
+        gc_->setHintRequestedFlag(true);
+        g_->makeHintRequest();
     }
 }

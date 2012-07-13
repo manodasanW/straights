@@ -55,6 +55,17 @@ void PlayFrame::notify()
         handImages[i] = Gtk::manage(new Gtk::Image(deckImages.getCardImage(c[i]->getRank(), c[i]->getSuit())));
         handButtons[i].set_sensitive(true);
         handButtons[i].set_image(*handImages[i]);
+        if (gc_->hintRequested()) {
+            if (*g_->hint() == *c[i]) {
+                handButtons[i].drag_highlight();
+            }
+            else {
+                handButtons[i].drag_unhighlight();
+            }
+        }
+        else {
+            handButtons[i].drag_unhighlight();
+        }
         handButtonConnections[i].disconnect();
         handButtonConnections[i] = handButtons[i].signal_clicked().connect( sigc::bind (
             sigc::mem_fun(*this, &PlayFrame::on_card_play), *c[i]));
@@ -89,6 +100,7 @@ PlayFrame::~PlayFrame()
 }
 
 void PlayFrame::on_card_play(const Card &c) {
+    gc_->setHintRequestedFlag(false);
     bool validMoveMade = gc_->playCard(c);
     if (!validMoveMade) {
         invalidMoveDialog.show_all_children();

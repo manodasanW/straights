@@ -8,6 +8,8 @@ public:
     GameController(Game *);
     ~GameController();
     bool gameInProgress() const;
+    bool hintRequested() const;
+    void setHintRequestedFlag(bool);
     
     void startGame(int, bool*);
     void endGame();
@@ -16,6 +18,7 @@ public:
 private:
     Game *g_;
     bool game_in_progress_;
+    bool hint_requested_;
 };
 
 #endif

@@ -118,6 +118,11 @@ bool Player::hasLegalMoves() const {
 	return legalMoves_.size() != 0;
 }
 
+// hint request
+void Player::makeHintRequest() {
+    notify();
+}
+
 // score reset
 void Player::resetScore() {
     score_ = 0;

@@ -1,7 +1,7 @@
 #include "GameController.h"
 
 // ctor
-GameController::GameController(Game *g) : g_(g), game_in_progress_(false) {
+GameController::GameController(Game *g) : g_(g), game_in_progress_(false), hint_requested_(false) {
 }
 
 // dtor
@@ -11,6 +11,16 @@ GameController::~GameController() {
 // game in progress accessor
 bool GameController::gameInProgress() const {
     return game_in_progress_;
+}
+
+// hint requested getter
+bool GameController::hintRequested() const {
+    return hint_requested_;
+}
+
+// hint requested setter
+void GameController::setHintRequestedFlag(bool flag) {
+    hint_requested_ = flag;
 }
 
 // starts a new game
@@ -38,3 +48,4 @@ bool GameController::playCard(const Card &c) {
 void GameController::rageQuit() {
     g_->playerRageQuit();
 }
+

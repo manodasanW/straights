@@ -34,6 +34,7 @@ public:
 	const Card* hint() const;						// gives a card as a hint	
     
 	//Mutators
+    void makeHintRequest();                         // makes a request for a hint
 	void seed(int);									// allows to set seed value
 	void setPlayerType(int,bool);					// sets what type (AI, HUMAN) the given player is
 	void playerRageQuit();							// performs a rage quit on the current player
