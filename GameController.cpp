@@ -1,5 +1,21 @@
 #include "GameController.h"
 
+using namespace std;
+
+// converts number to string
+string helper::num2str(int n) {
+    stringstream ss;
+    ss << n;
+    return ss.str();
+}
+
+// converts string to number
+int helper::str2num(string s) {
+    stringstream ss(s);
+    int n;
+    return (ss >> n) ? n : 0;
+}
+
 // ctor
 GameController::GameController(Game *g) : g_(g), game_in_progress_(false), hint_requested_(false) {
 }

@@ -48,7 +48,11 @@ private:
 	// dialog for invalid moves
     Gtk::Label dialogLabel;
     Gtk::Dialog invalidMoveDialog;
-
+    
+    // dialog for winners
+    Gtk::Label winnersLabel;
+    Gtk::Dialog winnersDialog;
+    
 	DeckGUI deckImages;									// used to retrieve images of cards in deck
 };
 

@@ -1,5 +1,7 @@
 #include "PlayFrame.h"
 
+using namespace std;
+
 // constructor - sets up all the gui elements on the frame
 PlayFrame::PlayFrame(GameController *gc, Game *g)
 	: Observer(), gc_(gc), g_(g), playArea(false, 10), table(true, 10), hand(true, 10),
@@ -47,16 +49,18 @@ PlayFrame::PlayFrame(GameController *gc, Game *g)
 
 	add(playArea);
     
-    // sets up dialog box
+    // sets up dialog boxes
     Gtk::VBox *contentArea = invalidMoveDialog.get_vbox();
     contentArea->add(dialogLabel);
 	// adds ok button
     invalidMoveDialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
+    winnersDialog.add_button(Gtk::Stock::OK, Gtk::RESPONSE_OK);
+    
 	// requests facade to tell player that it needs to be notified of updates
     g_->subscribeView(this);
 }
 
-// performs gui update due to model changd
+// performs gui update due to model changed
 void PlayFrame::notify()
 {
     // current player hand
@@ -113,6 +117,24 @@ void PlayFrame::notify()
     }
     
     show_all();
+    
+    // if game over, print winners
+    if (g_->gameDone()) {
+        string msg;
+        for (int i = 0; i < 4; i++) {
+            if (g_->winner(i)) {
+                msg += "Player " + helper::num2str(i+1) + " wins!\n";
+            }
+        }
+        winnersLabel.set_label(msg.c_str());
+        Gtk::VBox *contentArea = winnersDialog.get_vbox();
+        contentArea->add(winnersLabel);
+        winnersDialog.show_all_children();
+        int result = winnersDialog.run();
+        if (result == Gtk::RESPONSE_OK) {
+            winnersDialog.hide();
+        }
+    }
 }
 
 // destructor

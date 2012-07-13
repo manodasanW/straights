@@ -1,26 +1,7 @@
 #include "ControlFrame.h"
 #include <string>
-#include <iostream>
-#include <sstream>
 
 using namespace std;
-
-// helper name space
-namespace helper {
-	// converts number to string
-    string num2str(int n) {
-        stringstream ss;
-        ss << n;
-        return ss.str();
-    }
-    
-	// converts string to number
-    int str2num(string s) {
-        stringstream ss(s);
-        int n;
-        return (ss >> n) ? n : 0;
-    }
-}
 
 // constructor - sets up all the elements on the frame
 ControlFrame::ControlFrame(GameController *gc, Game *g)
