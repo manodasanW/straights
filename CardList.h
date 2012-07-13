@@ -9,9 +9,8 @@
 
 #include <vector>
 #include "Card.h"
-#include "Subject.h"
 
-class CardList : public Subject {
+class CardList {
 
 public:
 	CardList();

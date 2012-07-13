@@ -10,6 +10,7 @@
 #include "Card.h"
 #include "CardList.h"
 #include "Deck.h"
+#include "Observer.h"
 #include <vector>
 
 class Player;
@@ -35,6 +36,7 @@ public:
 	void newRound();
 	void endRound();
 	void notify();
+	void subscribeView(Observer* observer);
 	
 private:
     const int MAX_TURNS;				// maximum number of plays

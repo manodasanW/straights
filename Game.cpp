@@ -34,6 +34,12 @@ void Game::setPlayerType(int id, bool isHuman) {
 	players_[id]->setRole(isHuman);
 }
 
+void Game::subscribeView(Observer* observer) {
+	for (unsigned int id = 0; id < players_.size(); id++) {
+		players_[id]->subscribe(observer);
+	}
+}
+
 void Game::playerRageQuit(int id) {
 	players_[id]->rageQuit();
 	players_[id]->notifyTurn(table_);

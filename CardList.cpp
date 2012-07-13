@@ -3,8 +3,7 @@
 
 using namespace std;
 
-CardList::CardList()
-	:Subject(NULL) {
+CardList::CardList() {
 }
 
 CardList::~CardList()
@@ -13,7 +12,6 @@ CardList::~CardList()
 // Adds the specified card to the list of cards
 void CardList::add(const Card* card) {
 	cardList_.push_back(card);
-	notify();
 }
 
 // Removes the specified card from the list of cards
@@ -25,13 +23,11 @@ const Card* CardList::remove(const Card& card) {
 	const Card* ret = cardList_[indexToDelete];
 
 	cardList_.erase(cardList_.begin() + indexToDelete);
-	notify();
 	return ret;
 }
 
 void CardList::clear() {
 	cardList_.clear();
-	notify();
 }
 
 //Given a card, determines the index of the card in the list passed
