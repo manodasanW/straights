@@ -21,7 +21,8 @@ PlayFrame::PlayFrame(GameController *gc, Game *g)
 
 	for (int handIndex = 0; handIndex < RANK_COUNT; handIndex++) {
 		handImages[handIndex] = Gtk::manage(new Gtk::Image(deckImages.getNullCardImage()));
-		hand.add(*handImages[handIndex]);
+        handButtons[handIndex].set_image(*handImages[handIndex]);
+		hand.add(handButtons[handIndex]);
 	} 	
 
 	for (int tableIndex = 0; tableIndex < SUIT_COUNT; tableIndex++) {
@@ -35,7 +36,7 @@ PlayFrame::PlayFrame(GameController *gc, Game *g)
 	playArea.add(handFrame);
 
 	add(playArea);
-        
+    
     g_->subscribeView(this);
 }
 
@@ -45,14 +46,12 @@ void PlayFrame::notify()
     int currPlayerIndex = g_->getCurrentPlayerId();
     const CardList c = g_->getPlayerHand(currPlayerIndex);
     for (int i = 0; i < c.size(); i++) {
-        hand.remove(*handImages[i]);
         handImages[i] = Gtk::manage(new Gtk::Image(deckImages.getCardImage(c[i]->getRank(), c[i]->getSuit())));
-        hand.add(*handImages[i]);
+        handButtons[i].set_image(*handImages[i]);
     }
     for (int i = c.size(); i < 13; i++) {
-        hand.remove(*handImages[i]);
         handImages[i] = Gtk::manage(new Gtk::Image(deckImages.getNullCardImage()));
-        hand.add(*handImages[i]);
+        handButtons[i].set_image(*handImages[i]);
     }
     
     // table

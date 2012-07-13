@@ -5,6 +5,7 @@
 
 #include <gtkmm/box.h>
 #include <gtkmm/image.h>
+#include <gtkmm/button.h>
 
 #include <vector>
 
@@ -24,12 +25,13 @@ private:
     
 	Gtk::VBox playArea;
 
-	Gtk::Image* suitRows [SUIT_COUNT][RANK_COUNT];
+	Gtk::Image* suitRows[SUIT_COUNT][RANK_COUNT];
 	Gtk::Frame tableFrame;
 	Gtk::VBox table;
 	std::vector<Gtk::HBox*> tableRows;
-
-	Gtk::Image* handImages [RANK_COUNT];
+    
+    Gtk::Button handButtons[RANK_COUNT];
+	Gtk::Image* handImages[RANK_COUNT];
 	Gtk::Frame handFrame;
 	Gtk::HBox hand;
 
